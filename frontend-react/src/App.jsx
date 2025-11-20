@@ -16,6 +16,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import MenuManagement from './pages/MenuManagement';
 import './App.css';
 
 function App() {
@@ -33,6 +34,12 @@ function App() {
         
         {/* Dashboard (protected) */}
         <Route path="/dashboard" element={<Dashboard />} />
+        
+        {/* 🎓 LESSON: Menu Management Route
+         * When user clicks "Menu Items" in sidebar,
+         * they go to /menu and see MenuManagement component
+         */}
+        <Route path="/menu" element={<MenuManagement />} />
       </Routes>
     </Router>
   );
