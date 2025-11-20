@@ -10,8 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * User Entity - Represents restaurant owners/managers who use the system
@@ -30,6 +28,9 @@ public class User {
     @Id
     private String id;  // MongoDB uses String IDs by default
     
+    @Indexed(unique = true)  // Create unique index on username
+    private String username;
+    
     @Indexed(unique = true)  // Create unique index on email
     private String email;
     
@@ -43,8 +44,8 @@ public class User {
     
     private String phone;
     
-    // User roles (ADMIN, MANAGER, STAFF)
-    private Set<String> roles = new HashSet<>();
+    // User role (single role per user)
+    private UserRole role = UserRole.RESTAURANT_OWNER;
     
     private boolean active = true;
     
@@ -54,3 +55,4 @@ public class User {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 }
+

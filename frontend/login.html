@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Smart Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h2 {
+            margin: 0 0 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            background-color: #ff4757;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff6b81;
+        }
+
+        .btn-primary:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .register-link a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Password toggle styles */
+        .password-container {
+            position: relative;
+        }
+
+        .password-container input {
+            padding-right: 40px; /* Make space for the eye icon */
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #555;
+        }
+
+        .password-toggle:hover {
+            color: #333;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #ff4757;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Admin Login</h2>
+        
+        <!-- Error message -->
+        <div class="error" id="errorMessage"></div>
+        
+        <!-- Success message -->
+        <div class="success" id="successMessage"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                </div>
+            </div>
+            <button type="submit" class="btn-primary" id="loginBtn">Login</button>
+            
+            <!-- Loading spinner -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Logging in...</p>
+            </div>
+        </form>
+        
+        <div class="register-link">
+            <p>Not registered? <a href="register.html">Register here</a></p>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * TEACHING MOMENT FOR BEGINNERS:
+         * This JavaScript handles the login form:
+         * 1. Prevents default form submission (no page reload)
+         * 2. Gets username and password from form
+         * 3. Sends POST request to Spring Boot backend
+         * 4. If successful, stores JWT token in localStorage
+         * 5. Redirects to dashboard
+         * 
+         * This is how modern web apps work (no page reload!)
+         */
+
+        const API_BASE_URL = 'http://localhost:8080/api';
+
+        // Toggle password visibility
+        const togglePassword = document.querySelector('#togglePassword');
+        const passwordInput = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevent page reload
+
+            // Get form values
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            // Hide previous messages
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('loginBtn').disabled = true;
+
+            try {
+                // Send login request to Spring Boot backend
+                const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                });
+
+                // Hide loading
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('loginBtn').disabled = false;
+
+                if (response.ok) {
+                    // Login successful!
+                    const data = await response.json();
+                    
+                    console.log('Login successful:', data);
+
+                    // TEACHING MOMENT:
+                    // Store JWT token in localStorage
+                    // This is like keeping your VIP wristband in your pocket
+                    localStorage.setItem('jwt_token', data.token);
+                    localStorage.setItem('user_id', data.id);
+                    localStorage.setItem('username', data.username);
+                    localStorage.setItem('email', data.email);
+                    localStorage.setItem('role', data.role);
+
+                    // Show success message
+                    const successDiv = document.getElementById('successMessage');
+                    successDiv.textContent = `Welcome back, ${data.username}! Redirecting...`;
+                    successDiv.style.display = 'block';
+
+                    // Redirect to dashboard after 1 second
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1000);
+                } else {
+                    // Login failed
+                    const errorData = await response.json().catch(() => ({ message: 'Invalid credentials' }));
+                    
+                    const errorDiv = document.getElementById('errorMessage');
+                    errorDiv.textContent = errorData.message || 'Invalid username or password';
+                    errorDiv.style.display = 'block';
+
+                    // Clear password field
+                    document.getElementById('password').value = '';
+                }
+            } catch (error) {
+                // Network error or server not responding
+                console.error('Login error:', error);
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('loginBtn').disabled = false;
+
+                const errorDiv = document.getElementById('errorMessage');
+                errorDiv.textContent = 'Cannot connect to server. Please make sure the backend is running.';
+                errorDiv.style.display = 'block';
+            }
+        });
+
+        // Check if already logged in
+        window.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('jwt_token');
+            if (token) {
+                // Already logged in, redirect to dashboard
+                console.log('Already logged in, redirecting to dashboard...');
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -22,10 +22,20 @@ import java.util.Optional;
 public interface UserRepository extends MongoRepository<User, String> {
     
     /**
-     * Find user by email (for login)
+     * Find user by username (for login)
      * Spring auto-implements this based on method name!
      */
+    Optional<User> findByUsername(String username);
+    
+    /**
+     * Find user by email (alternative login method)
+     */
     Optional<User> findByEmail(String email);
+    
+    /**
+     * Check if username already exists (for registration)
+     */
+    boolean existsByUsername(String username);
     
     /**
      * Check if email already exists (for registration)
