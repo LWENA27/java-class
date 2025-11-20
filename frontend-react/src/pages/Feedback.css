@@ -1,0 +1,267 @@
+/**
+ * FEEDBACK PAGE STYLES
+ * Styling for the Customer Feedback page with filters and pagination
+ */
+
+/* Feedback Grid Layout */
+.feedback-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 20px;
+    align-items: start;
+}
+
+/* Card Header with Actions */
+.card-header-with-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.card-header-with-actions h2 {
+    margin: 0;
+}
+
+.filter-toggle-btn {
+    display: none; /* Hidden on desktop, shown on mobile */
+}
+
+/* Filter Aside Panel */
+.filter-aside {
+    position: sticky;
+    top: 20px;
+}
+
+.filter-panel {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.filter-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.close-filters-btn {
+    display: none; /* Hidden on desktop */
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.close-filters-btn:hover {
+    background-color: #f5f5f5;
+    color: var(--error-color);
+}
+
+/* Filter Form */
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.filter-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.filter-form label {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.filter-form input,
+.filter-form select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+}
+
+.filter-form input:focus,
+.filter-form select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Filter Actions */
+.filter-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.filter-actions .btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Rating Stars */
+.rating-stars {
+    color: #f39c12;
+    font-size: 18px;
+    white-space: nowrap;
+}
+
+/* Comments Cell */
+.comments-cell {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+}
+
+.pagination-btn {
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.pagination-btn:hover:not(.disabled) {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.pagination-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    font-weight: bold;
+}
+
+.pagination-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    /* Switch to single column layout */
+    .feedback-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Show filter toggle button */
+    .filter-toggle-btn {
+        display: inline-flex;
+    }
+    
+    /* Hide filter panel by default */
+    .filter-aside {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 320px;
+        max-width: 90%;
+        z-index: 1000;
+        background: white;
+        box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+        overflow-y: auto;
+    }
+    
+    /* Show filter panel when open */
+    .filter-aside.open {
+        display: block;
+    }
+    
+    /* Show close button on mobile */
+    .close-filters-btn {
+        display: block;
+    }
+    
+    .filter-panel {
+        box-shadow: none;
+        border-radius: 0;
+        height: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-header-with-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filter-toggle-btn {
+        width: 100%;
+    }
+    
+    /* Make table scrollable on mobile */
+    .table-container {
+        overflow-x: auto;
+    }
+    
+    .data-table {
+        min-width: 800px;
+    }
+    
+    .comments-cell {
+        max-width: 200px;
+    }
+    
+    /* Stack pagination buttons */
+    .pagination {
+        flex-wrap: wrap;
+    }
+    
+    .pagination-btn {
+        min-width: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-aside {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .pagination-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}

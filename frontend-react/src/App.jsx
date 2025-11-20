@@ -20,6 +20,7 @@ import Dashboard from './pages/Dashboard';
 import MenuManagement from './pages/MenuManagement';
 import DailyMenu from './pages/DailyMenu';
 import Orders from './pages/Orders';
+import Feedback from './pages/Feedback';
 import './App.css';
 
 function App() {
@@ -50,6 +51,9 @@ function App() {
         
         {/* Orders Route - Manage customer orders and payments */}
         <Route path="/orders" element={<Orders />} />
+        
+        {/* Feedback Route - View and analyze customer feedback */}
+        <Route path="/feedback" element={<Feedback />} />
       </Routes>
     </Router>
     </LanguageProvider>

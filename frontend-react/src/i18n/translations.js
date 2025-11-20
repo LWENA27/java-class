@@ -183,7 +183,34 @@ export const translations = {
         orderStatusUpdated: 'Order status updated successfully!',
         paymentStatusUpdated: 'Payment status updated successfully!',
         failedToUpdateStatus: 'Failed to update status. Please try again.',
-        orderNotFound: 'Order not found or you do not have permission to view this order.'
+        orderNotFound: 'Order not found or you do not have permission to view this order.',
+        
+        // Feedback Page
+        customerFeedbackPage: 'Customer Feedback',
+        feedbackSubtitle: 'View and analyze customer feedback',
+        filters: 'Filters',
+        applyFilters: 'Apply Filters',
+        resetFilters: 'Reset',
+        startDate: 'Start Date',
+        endDate: 'End Date',
+        allRatings: 'All Ratings',
+        stars: 'Stars',
+        star: 'Star',
+        sortBy: 'Sort By',
+        dateNewestFirst: 'Date (Newest First)',
+        dateOldestFirst: 'Date (Oldest First)',
+        ratingHighToLow: 'Rating (High to Low)',
+        ratingLowToHigh: 'Rating (Low to High)',
+        feedbackId: 'Feedback ID',
+        orderTotal: 'Order Total',
+        dateSubmitted: 'Date Submitted',
+        noFeedbackMatches: 'No feedback matches your criteria.',
+        totalFeedback: 'Total Feedback',
+        loadingFeedback: 'Loading feedback...',
+        previousPage: 'Previous',
+        nextPage: 'Next',
+        page: 'Page',
+        closeFilters: 'Close'
     },
     
     // 🇹🇿 SWAHILI
@@ -352,7 +379,34 @@ export const translations = {
         orderStatusUpdated: 'Hali ya agizo imebadilishwa!',
         paymentStatusUpdated: 'Hali ya malipo imebadilishwa!',
         failedToUpdateStatus: 'Imeshindwa kubadilisha hali. Jaribu tena.',
-        orderNotFound: 'Agizo halipatikani au huna ruhusa ya kuliona.'
+        orderNotFound: 'Agizo halipatikani au huna ruhusa ya kuliona.',
+        
+        // Feedback Page
+        customerFeedbackPage: 'Maoni ya Wateja',
+        feedbackSubtitle: 'Tazama na changanua maoni ya wateja',
+        filters: 'Vichujio',
+        applyFilters: 'Tekeleza Vichujio',
+        resetFilters: 'Rudisha',
+        startDate: 'Tarehe ya Kuanza',
+        endDate: 'Tarehe ya Mwisho',
+        allRatings: 'Ukadiriaji Wote',
+        stars: 'Nyota',
+        star: 'Nyota',
+        sortBy: 'Panga Kwa',
+        dateNewestFirst: 'Tarehe (Mpya Kwanza)',
+        dateOldestFirst: 'Tarehe (Ya Zamani Kwanza)',
+        ratingHighToLow: 'Ukadiriaji (Juu hadi Chini)',
+        ratingLowToHigh: 'Ukadiriaji (Chini hadi Juu)',
+        feedbackId: 'Nambari ya Maoni',
+        orderTotal: 'Jumla ya Agizo',
+        dateSubmitted: 'Tarehe Iliyowasilishwa',
+        noFeedbackMatches: 'Hakuna maoni yanayolingana na vigezo vyako.',
+        totalFeedback: 'Jumla ya Maoni',
+        loadingFeedback: 'Inapakia maoni...',
+        previousPage: 'Iliyotangulia',
+        nextPage: 'Inayofuata',
+        page: 'Ukurasa',
+        closeFilters: 'Funga'
     },
     
     // 🇫🇷 FRENCH
@@ -521,7 +575,34 @@ export const translations = {
         orderStatusUpdated: 'Statut de la commande mis à jour avec succès!',
         paymentStatusUpdated: 'Statut du paiement mis à jour avec succès!',
         failedToUpdateStatus: 'Échec de la mise à jour du statut. Veuillez réessayer.',
-        orderNotFound: 'Commande introuvable ou vous n\'avez pas la permission de voir cette commande.'
+        orderNotFound: 'Commande introuvable ou vous n\'avez pas la permission de voir cette commande.',
+        
+        // Feedback Page
+        customerFeedbackPage: 'Avis Clients',
+        feedbackSubtitle: 'Voir et analyser les avis des clients',
+        filters: 'Filtres',
+        applyFilters: 'Appliquer les Filtres',
+        resetFilters: 'Réinitialiser',
+        startDate: 'Date de Début',
+        endDate: 'Date de Fin',
+        allRatings: 'Toutes les Notes',
+        stars: 'Étoiles',
+        star: 'Étoile',
+        sortBy: 'Trier Par',
+        dateNewestFirst: 'Date (Plus Récent)',
+        dateOldestFirst: 'Date (Plus Ancien)',
+        ratingHighToLow: 'Note (Élevée à Basse)',
+        ratingLowToHigh: 'Note (Basse à Élevée)',
+        feedbackId: 'ID d\'Avis',
+        orderTotal: 'Total de Commande',
+        dateSubmitted: 'Date Soumise',
+        noFeedbackMatches: 'Aucun avis ne correspond à vos critères.',
+        totalFeedback: 'Total d\'Avis',
+        loadingFeedback: 'Chargement des avis...',
+        previousPage: 'Précédent',
+        nextPage: 'Suivant',
+        page: 'Page',
+        closeFilters: 'Fermer'
     }
 };
 
