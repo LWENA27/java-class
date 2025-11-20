@@ -1,0 +1,211 @@
+/**
+ * ORDERS PAGE STYLES
+ * Styling for the Orders management page
+ */
+
+/* Table Type Indicator */
+.table-type {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    font-weight: normal;
+}
+
+/* Status Select Dropdown */
+.status-select {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.status-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Status Colors */
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-confirmed {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-preparing {
+    background-color: #d6d8ff;
+    color: #1e3a8a;
+}
+
+.status-ready {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-delivered {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-cancelled {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Paid Checkbox Label */
+.paid-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.paid-checkbox-label input[type="checkbox"] {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.paid-checkbox-label span {
+    font-size: 14px;
+}
+
+/* Actions Column */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Small Button */
+.btn-small {
+    padding: 6px 12px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Order Details Modal */
+.order-info {
+    margin-bottom: 20px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row strong {
+    color: var(--text-color);
+    min-width: 150px;
+}
+
+.info-row span {
+    color: var(--text-secondary);
+    text-align: right;
+}
+
+.amount-highlight {
+    font-weight: bold;
+    color: var(--success-color);
+    font-size: 1.1em;
+}
+
+/* Modal Table */
+.modal-table {
+    font-size: 14px;
+}
+
+.modal-table th {
+    font-size: 13px;
+}
+
+/* Customizations List */
+.customizations-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.customizations-list li {
+    padding: 3px 0;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
+
+.customizations-list li::before {
+    content: "• ";
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* Badge in Modal */
+.modal-content .badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .paid-checkbox-label {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+    
+    .btn-small {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .status-select {
+        width: 100%;
+    }
+    
+    .info-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .info-row span {
+        text-align: left;
+    }
+    
+    /* Make modal table scrollable on mobile */
+    .modal-content .table-container {
+        overflow-x: auto;
+    }
+    
+    .modal-table {
+        min-width: 600px;
+    }
+}
+
+@media (max-width: 480px) {
+    .table-type {
+        display: block;
+        margin-top: 3px;
+    }
+}

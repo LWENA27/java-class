@@ -19,6 +19,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import MenuManagement from './pages/MenuManagement';
 import DailyMenu from './pages/DailyMenu';
+import Orders from './pages/Orders';
 import './App.css';
 
 function App() {
@@ -46,6 +47,9 @@ function App() {
         
         {/* Daily Menu Route - Manage menu items for specific dates */}
         <Route path="/daily-menu" element={<DailyMenu />} />
+        
+        {/* Orders Route - Manage customer orders and payments */}
+        <Route path="/orders" element={<Orders />} />
       </Routes>
     </Router>
     </LanguageProvider>
