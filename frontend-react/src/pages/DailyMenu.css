@@ -1,0 +1,241 @@
+/* Daily Menu Page Styles */
+
+/* Import shared styles from MenuManagement */
+@import './MenuManagement.css';
+
+/* Date Selector Section */
+.date-selector {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.date-input {
+    padding: 0.7rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 200px;
+}
+
+.date-input:hover {
+    border-color: #3498db;
+}
+
+.date-input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Special Price Styling */
+.special-price .badge-success {
+    background-color: #10ac84;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.text-muted {
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Toggle Switch for Availability */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #10ac84;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+.toggle-slider:hover {
+    opacity: 0.8;
+}
+
+/* Status Text */
+.status-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+    vertical-align: middle;
+}
+
+.status-text.available {
+    color: #10ac84;
+}
+
+.status-text.unavailable {
+    color: #ee5a6f;
+}
+
+/* Card Header */
+.card-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--dark-color, #2c3e50);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .date-selector {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .date-input {
+        width: 100%;
+    }
+    
+    .date-selector .btn {
+        width: 100%;
+    }
+    
+    .toggle-switch {
+        display: block;
+        margin: 0 auto 0.5rem;
+    }
+    
+    .status-text {
+        display: block;
+        text-align: center;
+    }
+}
+
+/* Success/Error Messages */
+.success-message {
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.5rem;
+    background-color: rgba(16, 172, 132, 0.1);
+    border: 1px solid #10ac84;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: slideDown 0.3s ease;
+}
+
+.success-message i {
+    color: #10ac84;
+    font-size: 1.2rem;
+}
+
+.success-message p {
+    margin: 0;
+    color: #0d8f6d;
+    font-weight: 500;
+}
+
+.error-container {
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.5rem;
+    background-color: rgba(238, 90, 111, 0.1);
+    border: 1px solid #ee5a6f;
+    border-radius: 8px;
+}
+
+.error-message {
+    margin: 0;
+    color: #ee5a6f;
+    font-weight: 500;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Special styling for daily menu table */
+.data-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.data-table .font-weight-bold {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Loading State */
+.loading-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: #6c757d;
+}
+
+.loading-center i {
+    margin-bottom: 1rem;
+    color: #3498db;
+}
+
+.loading-center p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* No Data State */
+.no-data {
+    text-align: center;
+    padding: 3rem !important;
+    color: #6c757d;
+    font-style: italic;
+}

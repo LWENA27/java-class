@@ -98,7 +98,26 @@ export const translations = {
         reports: 'Reports',
         qrCodes: 'QR Codes',
         settings: 'Settings',
-        logout: 'Logout'
+        logout: 'Logout',
+        
+        // Daily Menu Page
+        dailyMenu: 'Daily Menu',
+        dailyMenuSubtitle: 'Manage menu items available for specific dates',
+        selectDate: 'Select Date',
+        viewMenu: 'View Menu',
+        addToDailyMenu: 'Add to Daily Menu',
+        menuItem: 'Menu Item',
+        selectItem: 'Select item',
+        specialPrice: 'Special Price (TSH)',
+        specialPriceOptional: 'Special Price (optional)',
+        originalPrice: 'Original Price',
+        photo: 'Photo',
+        noDailyMenuItems: 'No items in the daily menu for this date.',
+        itemAddedToDailyMenu: 'Item added to daily menu successfully!',
+        itemUpdatedInDailyMenu: 'Daily menu item updated successfully!',
+        itemRemovedFromDailyMenu: 'Item removed from daily menu successfully!',
+        removeDailyMenuConfirm: 'Are you sure you want to remove this item from the daily menu?',
+        date: 'Date'
     },
     
     // 🇹🇿 SWAHILI
@@ -175,14 +194,33 @@ export const translations = {
         
         // Sidebar
         dashboard: 'Dashibodi',
-        manageMenu: 'Simamia Vyakula',
-        todaysMenu: 'Vyakula vya Leo',
+        manageMenu: 'Simamia Menyu',
+        todaysMenu: 'Menyu ya Leo',
         orders: 'Maagizo',
         customerFeedback: 'Maoni ya Wateja',
         reports: 'Ripoti',
         qrCodes: 'Misimbo ya QR',
         settings: 'Mipangilio',
-        logout: 'Toka'
+        logout: 'Toka',
+        
+        // Daily Menu Page
+        dailyMenu: 'Menyu ya Siku',
+        dailyMenuSubtitle: 'Simamia vyakula vinavyopatikana kwa siku maalum',
+        selectDate: 'Chagua Tarehe',
+        viewMenu: 'Ona Menyu',
+        addToDailyMenu: 'Ongeza kwenye Menyu ya Siku',
+        menuItem: 'Chakula',
+        selectItem: 'Chagua chakula',
+        specialPrice: 'Bei Maalum (TSH)',
+        specialPriceOptional: 'Bei Maalum (hiari)',
+        originalPrice: 'Bei ya Asili',
+        photo: 'Picha',
+        noDailyMenuItems: 'Hakuna vyakula kwenye menyu ya siku hii.',
+        itemAddedToDailyMenu: 'Chakula kimeongezwa kwenye menyu ya siku!',
+        itemUpdatedInDailyMenu: 'Chakula kimebadilishwa kwenye menyu ya siku!',
+        itemRemovedFromDailyMenu: 'Chakula kimeondolewa kutoka menyu ya siku!',
+        removeDailyMenuConfirm: 'Una uhakika unataka kuondoa chakula hiki kutoka menyu ya siku?',
+        date: 'Tarehe'
     },
     
     // 🇫🇷 FRENCH
@@ -266,7 +304,26 @@ export const translations = {
         reports: 'Rapports',
         qrCodes: 'Codes QR',
         settings: 'Paramètres',
-        logout: 'Déconnexion'
+        logout: 'Déconnexion',
+        
+        // Daily Menu Page
+        dailyMenu: 'Menu Quotidien',
+        dailyMenuSubtitle: 'Gérez les articles disponibles pour des dates spécifiques',
+        selectDate: 'Sélectionner la Date',
+        viewMenu: 'Voir le Menu',
+        addToDailyMenu: 'Ajouter au Menu Quotidien',
+        menuItem: 'Article du Menu',
+        selectItem: 'Sélectionner un article',
+        specialPrice: 'Prix Spécial (TSH)',
+        specialPriceOptional: 'Prix Spécial (facultatif)',
+        originalPrice: 'Prix Original',
+        photo: 'Photo',
+        noDailyMenuItems: 'Aucun article dans le menu quotidien pour cette date.',
+        itemAddedToDailyMenu: 'Article ajouté au menu quotidien avec succès!',
+        itemUpdatedInDailyMenu: 'Article du menu quotidien mis à jour avec succès!',
+        itemRemovedFromDailyMenu: 'Article retiré du menu quotidien avec succès!',
+        removeDailyMenuConfirm: 'Êtes-vous sûr de vouloir retirer cet article du menu quotidien?',
+        date: 'Date'
     }
 };
 

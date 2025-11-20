@@ -18,6 +18,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import MenuManagement from './pages/MenuManagement';
+import DailyMenu from './pages/DailyMenu';
 import './App.css';
 
 function App() {
@@ -42,6 +43,9 @@ function App() {
          * they go to /menu and see MenuManagement component
          */}
         <Route path="/menu" element={<MenuManagement />} />
+        
+        {/* Daily Menu Route - Manage menu items for specific dates */}
+        <Route path="/daily-menu" element={<DailyMenu />} />
       </Routes>
     </Router>
     </LanguageProvider>
