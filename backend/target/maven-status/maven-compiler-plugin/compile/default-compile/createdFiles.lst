@@ -1,0 +1,11 @@
+com/smartmenu/model/Order.class
+com/smartmenu/model/Order$OrderItem.class
+com/smartmenu/model/User.class
+com/smartmenu/repository/MenuItemRepository.class
+com/smartmenu/repository/OrderRepository.class
+com/smartmenu/model/Order$OrderStatus.class
+com/smartmenu/model/MenuItem.class
+com/smartmenu/repository/TableRepository.class
+com/smartmenu/SmartMenuApplication.class
+com/smartmenu/model/Table.class
+com/smartmenu/repository/UserRepository.class

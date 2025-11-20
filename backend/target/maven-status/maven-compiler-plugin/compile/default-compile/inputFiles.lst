@@ -1,0 +1,14 @@
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/model/MenuItem.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/config/SecurityConfig.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/model/User.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/repository/TableRepository.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/repository/UserRepository.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/model/Order.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/SmartMenuApplication.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/model/Table.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/config/WebConfig.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/controller/HealthController.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/repository/MenuItemRepository.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/service/MenuItemService.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/controller/MenuItemController.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/repository/OrderRepository.java
