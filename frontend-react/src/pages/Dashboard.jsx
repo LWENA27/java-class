@@ -14,6 +14,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUserData, clearUserData, isLoggedIn } from '../services/api';
 import Sidebar from '../components/Sidebar';
+import Navbar from '../components/Navbar';
 import './Dashboard.css';
 
 function Dashboard() {
@@ -126,25 +127,8 @@ function Dashboard() {
 
             {/* Main Content Wrapper */}
             <div className="main-wrapper">
-                {/* Navigation Bar */}
-                <nav className="navbar">
-                    <div className="navbar-left">
-                        <button className="mobile-menu-btn" onClick={toggleSidebar}>
-                            <i className="fas fa-bars"></i>
-                        </button>
-                        <div className="navbar-brand">
-                            <i className="fas fa-utensils"></i> Smart Menu
-                        </div>
-                    </div>
-                    <div className="navbar-user">
-                        <div className="user-info">
-                            <span>Welcome, {user.username || 'Admin'}</span>
-                        </div>
-                        <button className="logout-btn" onClick={handleLogout}>
-                            <i className="fas fa-sign-out-alt"></i> Logout
-                        </button>
-                    </div>
-                </nav>
+                {/* Navigation Bar with Language Switcher */}
+                <Navbar onToggleSidebar={toggleSidebar} />
 
                 {/* Main Content */}
                 <main className="main-content">

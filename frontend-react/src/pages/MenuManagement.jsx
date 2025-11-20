@@ -26,11 +26,12 @@ import { useNavigate } from 'react-router-dom';
 import { getUserData, isLoggedIn } from '../services/api';
 import { useLanguage } from '../i18n/LanguageContext';
 import Sidebar from '../components/Sidebar';
+import Navbar from '../components/Navbar';
 import './MenuManagement.css';
 
 function MenuManagement() {
     // 🎓 LESSON: useLanguage Hook - Get translation function
-    const { t, language, changeLanguage, languages } = useLanguage();
+    const { t } = useLanguage(); // Language switcher now in Navbar component
     // 🎓 LESSON: useState Hook - React's way to store changing data
     
     // User authentication
@@ -326,59 +327,26 @@ function MenuManagement() {
 
             {/* Main Content Wrapper */}
             <div className="main-wrapper">
-                {/* Navigation Bar */}
-                <nav className="navbar">
-                    <div className="navbar-left">
-                        <button className="mobile-menu-btn" onClick={toggleSidebar}>
-                            <i className="fas fa-bars"></i>
-                        </button>
-                        <div className="navbar-brand">
-                            <i className="fas fa-utensils"></i> Smart Menu
-                        </div>
-                    </div>
-                    <div className="navbar-user">
-                        <div className="user-info">
-                            <span>Welcome, {user.username || 'Admin'}</span>
-                        </div>
-                        <button className="logout-btn" onClick={handleLogout}>
-                            <i className="fas fa-sign-out-alt"></i> Logout
-                        </button>
-                    </div>
-                </nav>
+                {/* Navigation Bar with Language Switcher */}
+                <Navbar onToggleSidebar={toggleSidebar} />
 
                 {/* Main Content */}
                 <main className="main-content">
-                {/* 🎓 NEW: Page Header with Language Switcher */}
+                {/* Page Header (Title and Add Button) */}
                 <div className="page-header">
                     <div className="header-content">
                         <h1>{t('menuItems')}</h1>
                         <p className="subtitle">{t('menuSubtitle')}</p>
                     </div>
                     
-                    <div className="header-actions">
-                        {/* 🎓 LESSON: Language Switcher Dropdown */}
-                        <select 
-                            className="language-switcher"
-                            value={language}
-                            onChange={(e) => changeLanguage(e.target.value)}
-                            title="Change Language"
-                        >
-                            {languages.map(lang => (
-                                <option key={lang.code} value={lang.code}>
-                                    {lang.flag} {lang.name}
-                                </option>
-                            ))}
-                        </select>
-                        
-                        {/* Add Menu Item Button */}
-                        <button 
-                            className="btn btn-primary"
-                            onClick={handleAddClick}
-                        >
-                            <i className="fas fa-plus"></i>
-                            {t('addMenuItem')}
-                        </button>
-                    </div>
+                    {/* Add Menu Item Button */}
+                    <button 
+                        className="btn btn-primary"
+                        onClick={handleAddClick}
+                    >
+                        <i className="fas fa-plus"></i>
+                        {t('addMenuItem')}
+                    </button>
                 </div>
 
                 {/* Success Message */}
