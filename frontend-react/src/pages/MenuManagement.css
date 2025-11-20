@@ -30,6 +30,36 @@
     font-size: 0.95rem;
 }
 
+/* 📝 NEW: Header Actions Container */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* 📝 TEACHING: Language Switcher Dropdown */
+.language-switcher {
+    padding: 0.6rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 150px;
+}
+
+.language-switcher:hover {
+    border-color: #3498db;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.language-switcher:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
 /* 📝 TEACHING: Content Card (wraps the table) */
 .content-card {
     background: white;
@@ -419,6 +449,12 @@ input[type="file"] {
         align-items: flex-start;
     }
     
+    .header-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .language-switcher,
     .page-header .btn {
         width: 100%;
     }

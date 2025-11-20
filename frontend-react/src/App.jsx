@@ -13,6 +13,7 @@
  */
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { LanguageProvider } from './i18n/LanguageContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -21,8 +22,9 @@ import './App.css';
 
 function App() {
   return (
-    <Router>
-      <Routes>
+    <LanguageProvider>
+      <Router>
+        <Routes>
         {/* Default route - redirect to login */}
         <Route path="/" element={<Navigate to="/login" replace />} />
         
@@ -42,6 +44,7 @@ function App() {
         <Route path="/menu" element={<MenuManagement />} />
       </Routes>
     </Router>
+    </LanguageProvider>
   );
 }
 
