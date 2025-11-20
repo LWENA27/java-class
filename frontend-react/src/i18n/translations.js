@@ -117,7 +117,42 @@ export const translations = {
         itemUpdatedInDailyMenu: 'Daily menu item updated successfully!',
         itemRemovedFromDailyMenu: 'Item removed from daily menu successfully!',
         removeDailyMenuConfirm: 'Are you sure you want to remove this item from the daily menu?',
-        date: 'Date'
+        date: 'Date',
+        
+        // Dashboard Page
+        todaysOrders: "Today's Orders",
+        todaysSales: "Today's Sales",
+        pendingOrders: 'Pending Orders',
+        activeMenuItems: 'Active Menu Items',
+        tablesRooms: 'Tables/Rooms',
+        recentOrders: 'Recent Orders',
+        topSellingItems: 'Top Selling Items',
+        quickActions: 'Quick Actions',
+        viewAll: 'View All',
+        viewReports: 'View Reports',
+        orderNumber: 'Order #',
+        tableRoom: 'Table/Room',
+        amount: 'Amount',
+        payment: 'Payment',
+        time: 'Time',
+        item: 'Item',
+        unitsSold: 'Units Sold',
+        totalRevenue: 'Total Revenue',
+        rating: 'Rating',
+        comments: 'Comments',
+        noRecentOrders: 'No recent orders',
+        noSalesData: 'No sales data available',
+        noFeedback: 'No feedback available',
+        noComments: 'No comments',
+        loadingDashboard: 'Loading dashboard...',
+        processOrders: 'Process Orders',
+        
+        // Order Status
+        delivered: 'Delivered',
+        preparing: 'Preparing',
+        confirmed: 'Confirmed',
+        pending: 'Pending',
+        completed: 'Completed'
     },
     
     // 🇹🇿 SWAHILI
@@ -220,7 +255,42 @@ export const translations = {
         itemUpdatedInDailyMenu: 'Chakula kimebadilishwa kwenye menyu ya siku!',
         itemRemovedFromDailyMenu: 'Chakula kimeondolewa kutoka menyu ya siku!',
         removeDailyMenuConfirm: 'Una uhakika unataka kuondoa chakula hiki kutoka menyu ya siku?',
-        date: 'Tarehe'
+        date: 'Tarehe',
+        
+        // Dashboard Page
+        todaysOrders: 'Maagizo ya Leo',
+        todaysSales: 'Mauzo ya Leo',
+        pendingOrders: 'Maagizo Yanayosubiri',
+        activeMenuItems: 'Vyakula Vinavyopatikana',
+        tablesRooms: 'Meza/Vyumba',
+        recentOrders: 'Maagizo ya Karibuni',
+        topSellingItems: 'Vyakula Vinavyouzwa Zaidi',
+        quickActions: 'Vitendo vya Haraka',
+        viewAll: 'Ona Yote',
+        viewReports: 'Ona Ripoti',
+        orderNumber: 'Nambari ya Agizo',
+        tableRoom: 'Meza/Chumba',
+        amount: 'Kiasi',
+        payment: 'Malipo',
+        time: 'Muda',
+        item: 'Chakula',
+        unitsSold: 'Vilivyouzwa',
+        totalRevenue: 'Mapato Jumla',
+        rating: 'Ukadiriaji',
+        comments: 'Maoni',
+        noRecentOrders: 'Hakuna maagizo ya karibuni',
+        noSalesData: 'Hakuna data ya mauzo',
+        noFeedback: 'Hakuna maoni',
+        noComments: 'Hakuna maoni',
+        loadingDashboard: 'Inapakia dashibodi...',
+        processOrders: 'Shughulikia Maagizo',
+        
+        // Order Status
+        delivered: 'Imetolewa',
+        preparing: 'Inaandaliwa',
+        confirmed: 'Imethibitishwa',
+        pending: 'Inasubiri',
+        completed: 'Imekamilika'
     },
     
     // 🇫🇷 FRENCH
@@ -323,7 +393,42 @@ export const translations = {
         itemUpdatedInDailyMenu: 'Article du menu quotidien mis à jour avec succès!',
         itemRemovedFromDailyMenu: 'Article retiré du menu quotidien avec succès!',
         removeDailyMenuConfirm: 'Êtes-vous sûr de vouloir retirer cet article du menu quotidien?',
-        date: 'Date'
+        date: 'Date',
+        
+        // Dashboard Page
+        todaysOrders: 'Commandes du Jour',
+        todaysSales: 'Ventes du Jour',
+        pendingOrders: 'Commandes en Attente',
+        activeMenuItems: 'Articles Actifs',
+        tablesRooms: 'Tables/Salles',
+        recentOrders: 'Commandes Récentes',
+        topSellingItems: 'Articles les Plus Vendus',
+        quickActions: 'Actions Rapides',
+        viewAll: 'Voir Tout',
+        viewReports: 'Voir les Rapports',
+        orderNumber: 'Commande #',
+        tableRoom: 'Table/Salle',
+        amount: 'Montant',
+        payment: 'Paiement',
+        time: 'Heure',
+        item: 'Article',
+        unitsSold: 'Unités Vendues',
+        totalRevenue: 'Revenu Total',
+        rating: 'Note',
+        comments: 'Commentaires',
+        noRecentOrders: 'Aucune commande récente',
+        noSalesData: 'Aucune donnée de vente disponible',
+        noFeedback: 'Aucun avis disponible',
+        noComments: 'Aucun commentaire',
+        loadingDashboard: 'Chargement du tableau de bord...',
+        processOrders: 'Traiter les Commandes',
+        
+        // Order Status
+        delivered: 'Livré',
+        preparing: 'En Préparation',
+        confirmed: 'Confirmé',
+        pending: 'En Attente',
+        completed: 'Terminé'
     }
 };
 

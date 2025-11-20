@@ -13,11 +13,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUserData, clearUserData, isLoggedIn } from '../services/api';
+import { useLanguage } from '../i18n/LanguageContext';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import './Dashboard.css';
 
 function Dashboard() {
+    const { t } = useLanguage();
     const [user, setUser] = useState({});
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [stats, setStats] = useState({
@@ -133,13 +135,13 @@ function Dashboard() {
                 {/* Main Content */}
                 <main className="main-content">
                 <div className="header">
-                    <h1>Dashboard</h1>
+                    <h1>{t('dashboard')}</h1>
                 </div>
 
                 {loading ? (
                     <div className="loading-center">
                         <i className="fas fa-spinner fa-spin" style={{fontSize: '40px'}}></i>
-                        <p>Loading dashboard...</p>
+                        <p>{t('loadingDashboard')}</p>
                     </div>
                 ) : (
                     <>
@@ -150,7 +152,7 @@ function Dashboard() {
                                     <i className="fas fa-shopping-cart"></i>
                                 </div>
                                 <div className="stat-details">
-                                    <h3>Today's Orders</h3>
+                                    <h3>{t('todaysOrders')}</h3>
                                     <p className="stat-number">{stats.totalOrders}</p>
                                 </div>
                             </div>
@@ -160,7 +162,7 @@ function Dashboard() {
                                     <i className="fas fa-dollar-sign"></i>
                                 </div>
                                 <div className="stat-details">
-                                    <h3>Today's Sales</h3>
+                                    <h3>{t('todaysSales')}</h3>
                                     <p className="stat-number">{formatCurrency(stats.totalSales)}</p>
                                 </div>
                             </div>
@@ -170,7 +172,7 @@ function Dashboard() {
                                     <i className="fas fa-clipboard-list"></i>
                                 </div>
                                 <div className="stat-details">
-                                    <h3>Pending Orders</h3>
+                                    <h3>{t('pendingOrders')}</h3>
                                     <p className="stat-number">{stats.pendingOrders}</p>
                                 </div>
                             </div>
@@ -180,7 +182,7 @@ function Dashboard() {
                                     <i className="fas fa-utensils"></i>
                                 </div>
                                 <div className="stat-details">
-                                    <h3>Active Menu Items</h3>
+                                    <h3>{t('activeMenuItems')}</h3>
                                     <p className="stat-number">{stats.activeItems}</p>
                                 </div>
                             </div>
@@ -190,7 +192,7 @@ function Dashboard() {
                                     <i className="fas fa-chair"></i>
                                 </div>
                                 <div className="stat-details">
-                                    <h3>Tables/Rooms</h3>
+                                    <h3>{t('tablesRooms')}</h3>
                                     <p className="stat-number">{stats.tablesCount}</p>
                                 </div>
                             </div>
@@ -201,25 +203,25 @@ function Dashboard() {
                             {/* Recent Orders */}
                             <div className="dashboard-card">
                                 <div className="card-header">
-                                    <h2>Recent Orders</h2>
-                                    <a href="/orders" className="view-all">View All</a>
+                                    <h2>{t('recentOrders')}</h2>
+                                    <a href="/orders" className="view-all">{t('viewAll')}</a>
                                 </div>
                                 <div className="card-content">
                                     <table className="data-table">
                                         <thead>
                                             <tr>
-                                                <th>Order #</th>
-                                                <th>Table/Room</th>
-                                                <th>Amount</th>
-                                                <th>Status</th>
-                                                <th>Payment</th>
-                                                <th>Time</th>
+                                                <th>{t('orderNumber')}</th>
+                                                <th>{t('tableRoom')}</th>
+                                                <th>{t('amount')}</th>
+                                                <th>{t('status')}</th>
+                                                <th>{t('payment')}</th>
+                                                <th>{t('time')}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {recentOrders.length === 0 ? (
                                                 <tr>
-                                                    <td colSpan="6" className="no-data">No recent orders</td>
+                                                    <td colSpan="6" className="no-data">{t('noRecentOrders')}</td>
                                                 </tr>
                                             ) : (
                                                 recentOrders.map(order => (
@@ -229,10 +231,10 @@ function Dashboard() {
                                                         <td>{formatCurrency(order.amount)}</td>
                                                         <td>
                                                             <span className={`status-badge status-${order.status}`}>
-                                                                {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                                                                {t(order.status)}
                                                             </span>
                                                         </td>
-                                                        <td>{order.paymentStatus}</td>
+                                                        <td>{t(order.paymentStatus)}</td>
                                                         <td>{formatTime(order.createdAt)}</td>
                                                     </tr>
                                                 ))
@@ -245,22 +247,22 @@ function Dashboard() {
                             {/* Top Selling Items */}
                             <div className="dashboard-card">
                                 <div className="card-header">
-                                    <h2>Top Selling Items</h2>
-                                    <a href="/reports" className="view-all">View Reports</a>
+                                    <h2>{t('topSellingItems')}</h2>
+                                    <a href="/reports" className="view-all">{t('viewReports')}</a>
                                 </div>
                                 <div className="card-content">
                                     <table className="data-table">
                                         <thead>
                                             <tr>
-                                                <th>Item</th>
-                                                <th>Units Sold</th>
-                                                <th>Total Revenue</th>
+                                                <th>{t('item')}</th>
+                                                <th>{t('unitsSold')}</th>
+                                                <th>{t('totalRevenue')}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {topItems.length === 0 ? (
                                                 <tr>
-                                                    <td colSpan="3" className="no-data">No sales data available</td>
+                                                    <td colSpan="3" className="no-data">{t('noSalesData')}</td>
                                                 </tr>
                                             ) : (
                                                 topItems.map((item, index) => (
@@ -279,23 +281,23 @@ function Dashboard() {
                             {/* Customer Feedback */}
                             <div className="dashboard-card">
                                 <div className="card-header">
-                                    <h2>Customer Feedback</h2>
-                                    <a href="/feedback" className="view-all">View All</a>
+                                    <h2>{t('customerFeedback')}</h2>
+                                    <a href="/feedback" className="view-all">{t('viewAll')}</a>
                                 </div>
                                 <div className="card-content">
                                     <table className="data-table">
                                         <thead>
                                             <tr>
-                                                <th>Order #</th>
-                                                <th>Table/Room</th>
-                                                <th>Rating</th>
-                                                <th>Comments</th>
+                                                <th>{t('orderNumber')}</th>
+                                                <th>{t('tableRoom')}</th>
+                                                <th>{t('rating')}</th>
+                                                <th>{t('comments')}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {recentFeedback.length === 0 ? (
                                                 <tr>
-                                                    <td colSpan="4" className="no-data">No feedback available</td>
+                                                    <td colSpan="4" className="no-data">{t('noFeedback')}</td>
                                                 </tr>
                                             ) : (
                                                 recentFeedback.map(feedback => (
@@ -303,7 +305,7 @@ function Dashboard() {
                                                         <td>{feedback.orderNumber}</td>
                                                         <td>{feedback.tableNumber}</td>
                                                         <td className="rating-stars">{renderStars(feedback.rating)}</td>
-                                                        <td>{feedback.comments || 'No comments'}</td>
+                                                        <td>{feedback.comments || t('noComments')}</td>
                                                     </tr>
                                                 ))
                                             )}
@@ -315,23 +317,23 @@ function Dashboard() {
 
                         {/* Quick Actions */}
                         <div className="quick-actions">
-                            <h2>Quick Actions</h2>
+                            <h2>{t('quickActions')}</h2>
                             <div className="action-buttons">
                                 <a href="/menu" className="action-btn">
                                     <i className="fas fa-utensils"></i>
-                                    <span>Manage Menu</span>
+                                    <span>{t('manageMenu')}</span>
                                 </a>
                                 <a href="/daily-menu" className="action-btn">
                                     <i className="fas fa-calendar-day"></i>
-                                    <span>Today's Menu</span>
+                                    <span>{t('todaysMenu')}</span>
                                 </a>
                                 <a href="/orders" className="action-btn">
                                     <i className="fas fa-shopping-cart"></i>
-                                    <span>Process Orders</span>
+                                    <span>{t('processOrders')}</span>
                                 </a>
                                 <a href="/qr-codes" className="action-btn">
                                     <i className="fas fa-qrcode"></i>
-                                    <span>QR Codes</span>
+                                    <span>{t('qrCodes')}</span>
                                 </a>
                             </div>
                         </div>

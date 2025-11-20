@@ -12,9 +12,11 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { clearUserData, getUserData } from '../services/api';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Sidebar.css';
 
 function Sidebar({ isOpen, onToggle }) {
+    const { t } = useLanguage();
     const location = useLocation();
     const navigate = useNavigate();
     const [newOrdersCount, setNewOrdersCount] = useState(0);
@@ -75,49 +77,49 @@ function Sidebar({ isOpen, onToggle }) {
         {
             path: '/dashboard',
             icon: 'fas fa-tachometer-alt',
-            label: 'Dashboard',
+            labelKey: 'dashboard',
             feature: 'dashboard'
         },
         {
             path: '/menu',
             icon: 'fas fa-utensils',
-            label: 'Manage Menu',
+            labelKey: 'manageMenu',
             feature: 'menu'
         },
         {
             path: '/daily-menu',
             icon: 'fas fa-calendar-day',
-            label: "Today's Menu",
+            labelKey: 'todaysMenu',
             feature: 'daily-menu'
         },
         {
             path: '/orders',
             icon: 'fas fa-shopping-cart',
-            label: 'Orders',
+            labelKey: 'orders',
             feature: 'orders'
         },
         {
             path: '/feedback',
             icon: 'fas fa-comments',
-            label: 'Customer Feedback',
+            labelKey: 'customerFeedback',
             feature: 'feedback'
         },
         {
             path: '/reports',
             icon: 'fas fa-chart-bar',
-            label: 'Reports',
+            labelKey: 'reports',
             feature: 'reports'
         },
         {
             path: '/qr-codes',
             icon: 'fas fa-qrcode',
-            label: 'QR Codes',
+            labelKey: 'qrCodes',
             feature: 'qr-codes'
         },
         {
             path: '/settings',
             icon: 'fas fa-cog',
-            label: 'Settings',
+            labelKey: 'settings',
             feature: 'settings',
             requiresFeature: true // Only show if user has this feature
         }
@@ -174,7 +176,7 @@ function Sidebar({ isOpen, onToggle }) {
                                         handleLinkClick();
                                     }}
                                 >
-                                    <i className={item.icon}></i> {item.label}
+                                    <i className={item.icon}></i> {t(item.labelKey)}
                                 </a>
                             </li>
                         );
@@ -189,7 +191,7 @@ function Sidebar({ isOpen, onToggle }) {
                                 handleLogout();
                             }}
                         >
-                            <i className="fas fa-sign-out-alt"></i> Logout
+                            <i className="fas fa-sign-out-alt"></i> {t('logout')}
                         </a>
                     </li>
                 </ul>
