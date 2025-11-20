@@ -71,6 +71,40 @@ function Login() {
         setSuccess('');
         setLoading(true);
 
+        // 🎓 TEACHING: Mock Authentication for Development
+        // Since backend is not running, we'll use test credentials
+        const TEST_USERNAME = 'admin';
+        const TEST_PASSWORD = 'admin123';
+
+        if (formData.username === TEST_USERNAME && formData.password === TEST_PASSWORD) {
+            // Mock successful login
+            const mockUserData = {
+                token: 'mock-jwt-token-for-development',
+                type: 'Bearer',
+                id: '1',
+                username: 'admin',
+                email: 'admin@smartmenu.com',
+                role: 'RESTAURANT_OWNER'
+            };
+
+            // Save to localStorage
+            saveUserData(mockUserData);
+
+            // Show success
+            setSuccess(`Welcome back, ${mockUserData.username}! Redirecting...`);
+
+            // Redirect to dashboard
+            setTimeout(() => {
+                navigate('/dashboard');
+            }, 1000);
+        } else {
+            // Invalid credentials
+            setError('Invalid username or password. Use: admin / admin123');
+            setLoading(false);
+        }
+
+        /* 
+        // TODO: Uncomment this when backend is running
         try {
             // Call API to login
             const response = await login({
@@ -94,6 +128,7 @@ function Login() {
             setError(err.response?.data?.message || 'Invalid username or password');
             setLoading(false);
         }
+        */
     };
 
     // ========================================================================
@@ -104,6 +139,26 @@ function Login() {
         <div className="login-page">
             <div className="login-container">
                 <h2>Admin Login</h2>
+
+                {/* 🎓 TEACHING: Development Mode Notice */}
+                <div className="info-box" style={{
+                    background: '#e3f2fd',
+                    border: '1px solid #2196f3',
+                    borderRadius: '8px',
+                    padding: '15px',
+                    marginBottom: '20px'
+                }}>
+                    <h4 style={{margin: '0 0 10px 0', color: '#1976d2'}}>
+                        🔐 Test Credentials
+                    </h4>
+                    <div style={{background: 'white', padding: '10px', borderRadius: '4px', marginBottom: '10px'}}>
+                        <p style={{margin: '5px 0'}}><strong>Username:</strong> admin</p>
+                        <p style={{margin: '5px 0'}}><strong>Password:</strong> admin123</p>
+                    </div>
+                    <p style={{fontSize: '0.85rem', color: '#666', margin: 0}}>
+                        <em>Backend authentication is under development. Use these credentials to test the dashboard.</em>
+                    </p>
+                </div>
 
                 {/* Error Message */}
                 {error && (
