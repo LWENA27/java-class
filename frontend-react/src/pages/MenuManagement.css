@@ -8,6 +8,147 @@
  * - Smooth animations
  */
 
+/* CSS Variables */
+:root {
+    --primary-color: #ff4757;
+    --primary-hover: #ff6b81;
+    --secondary-color: #5f27cd;
+    --success-color: #10ac84;
+    --warning-color: #ff9f43;
+    --danger-color: #ee5a6f;
+    --info-color: #00b894;
+    --dark-color: #2d3436;
+    --light-color: #f4f4f4;
+    --white: #ffffff;
+    --shadow: 0 2px 8px rgba(0,0,0,0.1);
+    --border-radius: 8px;
+    --button-min-size: 48px;
+    --sidebar-width: 250px;
+}
+
+/* Admin Container */
+.admin-container {
+    min-height: 100vh;
+    background-color: var(--light-color);
+    display: flex;
+}
+
+/* Main Wrapper - Content area beside sidebar */
+.main-wrapper {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    transition: margin-left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Sidebar Overlay for Mobile */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--dark-color);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.mobile-menu-btn:hover {
+    background-color: var(--light-color);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navbar-brand i {
+    font-size: 1.8rem;
+}
+
+.navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.user-info span {
+    color: var(--dark-color);
+    font-weight: 500;
+}
+
+.logout-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    min-height: var(--button-min-size);
+    min-width: var(--button-min-size);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Main Content */
+.main-content {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
 /* 📝 TEACHING: Page Header */
 .page-header {
     display: flex;
@@ -479,5 +620,57 @@ input[type="file"] {
     /* Stack modal buttons vertically */
     .modal-actions {
         flex-direction: column;
+    }
+    
+    /* Navbar mobile adjustments */
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .main-wrapper {
+        margin-left: 0;
+    }
+    
+    .navbar {
+        padding: 1rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .navbar-user {
+        gap: 0.5rem;
+    }
+    
+    .user-info {
+        display: none;
+    }
+    
+    .logout-btn span {
+        display: none;
+    }
+    
+    .logout-btn {
+        padding: 0.6rem;
+        min-width: auto;
+    }
+    
+    .sidebar-overlay {
+        display: block;
+    }
+    
+    .main-content {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-brand span {
+        display: none;
+    }
+    
+    .stat-card {
+        padding: 1rem;
     }
 }

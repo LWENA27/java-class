@@ -309,14 +309,45 @@ function MenuManagement() {
         return `${parseFloat(price).toLocaleString()} TSH`;
     };
 
+    // Handle logout
+    const handleLogout = () => {
+        localStorage.clear();
+        navigate('/login');
+    };
+
+    const toggleSidebar = () => {
+        setSidebarOpen(!sidebarOpen);
+    };
+
     return (
-        <div className="app-container">
-            <Sidebar 
-                isOpen={sidebarOpen} 
-                onToggle={() => setSidebarOpen(!sidebarOpen)} 
-            />
-            
-            <main className="main-content">
+        <div className="admin-container">
+            {/* Sidebar Navigation */}
+            <Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
+
+            {/* Main Content Wrapper */}
+            <div className="main-wrapper">
+                {/* Navigation Bar */}
+                <nav className="navbar">
+                    <div className="navbar-left">
+                        <button className="mobile-menu-btn" onClick={toggleSidebar}>
+                            <i className="fas fa-bars"></i>
+                        </button>
+                        <div className="navbar-brand">
+                            <i className="fas fa-utensils"></i> Smart Menu
+                        </div>
+                    </div>
+                    <div className="navbar-user">
+                        <div className="user-info">
+                            <span>Welcome, {user.username || 'Admin'}</span>
+                        </div>
+                        <button className="logout-btn" onClick={handleLogout}>
+                            <i className="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </nav>
+
+                {/* Main Content */}
+                <main className="main-content">
                 {/* 🎓 NEW: Page Header with Language Switcher */}
                 <div className="page-header">
                     <div className="header-content">
@@ -597,7 +628,16 @@ function MenuManagement() {
                         </div>
                     </div>
                 )}
-            </main>
+                </main>
+            </div>
+
+            {/* Overlay for mobile sidebar */}
+            {sidebarOpen && (
+                <div 
+                    className="sidebar-overlay" 
+                    onClick={toggleSidebar}
+                ></div>
+            )}
         </div>
     );
 }
