@@ -1,0 +1,17 @@
+# Build artifacts
+target/
+!target/smartmenu-backend-1.0.0.jar
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.iws
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db

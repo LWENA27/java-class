@@ -722,3 +722,8 @@ java.lang.IllegalArgumentException: When allowCredentials is true, allowedOrigin
 🗄️  MongoDB: localhost:27017/smartmenu
 ===========================================
 
+2025-11-22T01:12:55.385+03:00  INFO 871521 --- [smartmenu-backend] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-22T01:12:55.394+03:00  INFO 871521 --- [smartmenu-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-22T01:12:55.410+03:00  INFO 871521 --- [smartmenu-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 16 ms
+2025-11-22T01:12:55.413+03:00  WARN 871521 --- [smartmenu-backend] [nio-8080-exec-1] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/api/public/menu/6920dc5e66313b385bbe114c' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
+2025-11-22T01:12:55.436+03:00  WARN 871521 --- [smartmenu-backend] [nio-8080-exec-1] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/api/public/menu/6920dc5e66313b385bbe114c' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
