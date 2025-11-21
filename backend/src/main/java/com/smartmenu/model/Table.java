@@ -36,6 +36,12 @@ public class Table {
     // Base64 encoded QR code image (so we can display/download it)
     private String qrCodeImage;
     
+    // Is this entry representing a room instead of a table?
+    private boolean room = false;
+
+    // Physical location or notes for the table/room (e.g., 'Main Hall')
+    private String location;
+    
     private boolean active = true;
     
     @CreatedDate

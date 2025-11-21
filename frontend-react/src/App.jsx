@@ -21,6 +21,8 @@ import MenuManagement from './pages/MenuManagement';
 import DailyMenu from './pages/DailyMenu';
 import Orders from './pages/Orders';
 import Feedback from './pages/Feedback';
+import Reports from './pages/Reports';
+import QRCodes from './pages/QRCodes';
 import './App.css';
 
 function App() {
@@ -54,6 +56,10 @@ function App() {
         
         {/* Feedback Route - View and analyze customer feedback */}
         <Route path="/feedback" element={<Feedback />} />
+  {/* Reports Route - Sales Reports */}
+  <Route path="/reports" element={<Reports />} />
+        {/* QR Codes Route - Manage QR codes for tables/rooms */}
+        <Route path="/qr-codes" element={<QRCodes />} />
       </Routes>
     </Router>
     </LanguageProvider>

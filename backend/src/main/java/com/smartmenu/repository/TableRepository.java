@@ -12,13 +12,16 @@ import java.util.Optional;
  */
 @Repository
 public interface TableRepository extends MongoRepository<Table, String> {
-    
-    // Find all tables for a restaurant
+
+    // Find all tables for a specific user (tenant/owner)
     List<Table> findByUserId(String userId);
-    
+
+    // Optional: find by user and table number (for uniqueness checks)
+    List<Table> findByUserIdAndTableNumber(String userId, String tableNumber);
+
     // Find table by QR code ID (when customer scans)
     Optional<Table> findByQrCodeId(String qrCodeId);
-    
+
     // Find active tables
     List<Table> findByUserIdAndActiveTrue(String userId);
 }

@@ -1,0 +1,73 @@
+.dashboard-card {
+  background: var(--card-bg, #fff);
+  border-radius: 8px;
+  box-shadow: var(--shadow, 0 1px 3px rgba(0,0,0,0.08));
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.stat-card {
+  background: var(--background-color, #fafafa);
+  border-radius: 6px;
+  padding: 12px;
+  text-align: center;
+}
+
+.stat-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 0.95rem;
+  color: var(--text-color, #333);
+}
+
+.stat-card p {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--primary-color, #1f6feb);
+}
+
+.filter-form {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.filter-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.data-table th, .data-table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  text-align: left;
+}
+
+.no-data {
+  text-align: center;
+  padding: 20px 0;
+  color: var(--muted, #666);
+}
+
+@media (max-width: 768px) {
+  .filter-form { flex-direction: column; }
+  .data-table { display: block; overflow-x: auto; }
+}
