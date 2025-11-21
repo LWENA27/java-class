@@ -33,6 +33,11 @@ public class Order {
     private String tableId;
     private String tableNumber;
     
+    // Customer information for tracking
+    private String deviceId;        // Device that placed the order
+    private String customerName;    // Optional customer name
+    private String orderNumber;     // Human-readable order number (e.g., "ORD-001")
+    
     // Order items
     private List<OrderItem> items = new ArrayList<>();
     

@@ -74,10 +74,9 @@ function QRCodes() {
   };
 
   const generateQR = (id) => {
-    // Use public api placeholder to preview qr - replace base URL in production
-    // Prefer server-provided qrCodeUrl if present on table object
+    // Use the qrCodeUrl from the backend if available, otherwise construct full URL
     const table = tables.find(t => String(t.id) === String(id));
-    const dataUrl = table?.qrCodeUrl || (window.location.origin + `/?table=${id}`);
+    const dataUrl = table?.qrCodeUrl || `${window.location.origin}/customer-menu?table=${id}`;
     return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(dataUrl)}`;
   };
 

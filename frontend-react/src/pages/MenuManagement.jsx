@@ -85,40 +85,15 @@ function MenuManagement() {
         loadMenuItems();
     }, [navigate]);
 
-    // 🎓 LESSON: Load menu items from server (mock data for now)
+    // Load menu items from server
     const loadMenuItems = async () => {
         try {
             setLoading(true);
             
-            // TODO: Replace with real API call
-            // const response = await api.get('/api/menu-items');
-            // setMenuItems(response.data);
-            
-            // Mock data for teaching
-            const mockData = [
-                {
-                    id: 1,
-                    name: 'Ugali & Fish',
-                    description: 'Traditional ugali served with fried fish',
-                    price: 15000,
-                    category_id: 1,
-                    stock: 50,
-                    is_available: true,
-                    photo: null
-                },
-                {
-                    id: 2,
-                    name: 'Chips Mayai',
-                    description: 'French fries mixed with scrambled eggs',
-                    price: 6000,
-                    category_id: 1,
-                    stock: 30,
-                    is_available: true,
-                    photo: null
-                }
-            ];
-            
-            setMenuItems(mockData);
+            // Real API call to get menu items
+            const api = (await import('../services/api')).default;
+            const response = await api.get('/menu-items');
+            setMenuItems(response.data);
             setError('');
         } catch (err) {
             setError('Failed to load menu items. Please try again.');

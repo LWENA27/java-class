@@ -1,0 +1,26 @@
+services:
+  # Backend Service (Spring Boot)
+  - type: web
+    name: smartmenu-backend
+    env: java
+    buildCommand: cd backend && chmod +x mvnw && ./mvnw clean package -DskipTests
+    startCommand: cd backend && java -jar target/smartmenu-backend-1.0.0.jar
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: MONGODB_URI
+        sync: false  # You'll set this manually in Render dashboard
+      - key: JWT_SECRET
+        generateValue: true  # Render will generate a random secret
+      - key: FRONTEND_URL
+        sync: false  # You'll set this after deploying frontend
+
+  # Frontend Service (React)
+  - type: web
+    name: smartmenu-frontend
+    env: node
+    buildCommand: cd frontend-react && npm install && npm run build
+    startCommand: cd frontend-react && npm run preview -- --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: VITE_API_URL
+        sync: false  # Backend URL, set after backend deployment

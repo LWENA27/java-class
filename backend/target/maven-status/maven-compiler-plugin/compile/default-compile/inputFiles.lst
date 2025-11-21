@@ -31,5 +31,6 @@
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/service/MenuItemService.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/controller/DashboardController.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/security/UserDetailsServiceImpl.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/controller/OrderController.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/model/CustomerSession.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/dto/LoginRequest.java

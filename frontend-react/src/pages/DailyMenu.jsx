@@ -12,7 +12,7 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUserData, isLoggedIn } from '../services/api';
+import api, { getUserData, isLoggedIn } from '../services/api';
 import { useLanguage } from '../i18n/LanguageContext';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
@@ -73,21 +73,9 @@ function DailyMenu() {
     // Load all menu items for dropdown
     const loadAllMenuItems = async () => {
         try {
-            // TODO: Replace with real API call
-            // const response = await api.get('/api/menu-items');
-            
-            // Mock data
-            const mockData = [
-                { id: 1, name: 'Ugali & Fish', category_name: 'Main Dishes', category_id: 1, price: 15000 },
-                { id: 2, name: 'Chips Mayai', category_name: 'Main Dishes', category_id: 1, price: 6000 },
-                { id: 3, name: 'Pilau & Chicken', category_name: 'Main Dishes', category_id: 1, price: 12000 },
-                { id: 4, name: 'Rice', category_name: 'Sides', category_id: 2, price: 2000 },
-                { id: 5, name: 'Chapati', category_name: 'Sides', category_id: 2, price: 1000 },
-                { id: 6, name: 'Soda', category_name: 'Drinks', category_id: 3, price: 1500 },
-                { id: 7, name: 'Juice', category_name: 'Drinks', category_id: 3, price: 3000 }
-            ];
-            
-            setAllMenuItems(mockData);
+            // Real API call - gets all menu items for the logged-in user
+            const response = await api.get('/menu-items');
+            setAllMenuItems(response.data);
         } catch (err) {
             console.error('Error loading menu items:', err);
             setError('Failed to load menu items');
@@ -99,41 +87,25 @@ function DailyMenu() {
         try {
             setLoading(true);
             
-            // TODO: Replace with real API call
-            // const response = await api.get(`/api/daily-menu?date=${selectedDate}`);
+            // For now, show all available menu items from the database
+            // In the future, you can create a dedicated daily menu collection
+            // that stores date-specific menus with special pricing
+            const response = await api.get('/menu-items');
             
-            // Mock data - only if today's date
-            const today = new Date().toISOString().split('T')[0];
-            let mockData = [];
+            // Transform the data to match the expected format
+            const transformedItems = response.data.map(item => ({
+                id: item.id,
+                menu_item_id: item.id,
+                item_name: item.name,
+                category_name: item.category || 'Main Dishes',
+                original_price: item.price,
+                special_price: null, // Can be set per date in the future
+                is_available: item.available,
+                photo: item.imageUrl,
+                category_id: 1 // Default category
+            }));
             
-            if (selectedDate === today) {
-                mockData = [
-                    {
-                        id: 1,
-                        menu_item_id: 1,
-                        item_name: 'Ugali & Fish',
-                        category_name: 'Main Dishes',
-                        original_price: 15000,
-                        special_price: 13000,
-                        is_available: true,
-                        photo: null,
-                        category_id: 1
-                    },
-                    {
-                        id: 2,
-                        menu_item_id: 2,
-                        item_name: 'Chips Mayai',
-                        category_name: 'Main Dishes',
-                        original_price: 6000,
-                        special_price: null,
-                        is_available: true,
-                        photo: null,
-                        category_id: 1
-                    }
-                ];
-            }
-            
-            setDailyMenuItems(mockData);
+            setDailyMenuItems(transformedItems);
             setError('');
         } catch (err) {
             console.error('Error loading daily menu:', err);
@@ -240,13 +212,24 @@ function DailyMenu() {
 
     const handleToggleAvailability = async (id) => {
         try {
-            // TODO: Replace with real API call
+            // Find the current item
+            const item = dailyMenuItems.find(i => i.id === id);
+            if (!item) return;
             
+            // Update via API
+            await api.put(`/menu-items/${id}`, {
+                available: !item.is_available
+            });
+            
+            // Update local state
             setDailyMenuItems(prev => prev.map(item =>
                 item.id === id
                     ? { ...item, is_available: !item.is_available }
                     : item
             ));
+            
+            setSuccess('Availability updated successfully');
+            setTimeout(() => setSuccess(''), 3000);
         } catch (err) {
             console.error('Error updating availability:', err);
             setError('Failed to update availability');
@@ -471,7 +454,7 @@ function DailyMenu() {
                                                 <option value="">{t('selectItem')}</option>
                                                 {allMenuItems.map(item => (
                                                     <option key={item.id} value={item.id}>
-                                                        {item.category_name} - {item.name} ({formatPrice(item.price)})
+                                                        {item.category || 'Main Dishes'} - {item.name} ({formatPrice(item.price)})
                                                     </option>
                                                 ))}
                                             </select>

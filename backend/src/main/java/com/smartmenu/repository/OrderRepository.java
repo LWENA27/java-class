@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Order Repository
@@ -23,6 +24,12 @@ public interface OrderRepository extends MongoRepository<Order, String> {
     
     // Find orders by status, ordered by creation date
     List<Order> findByUserIdAndStatusOrderByCreatedAtDesc(String userId, Order.OrderStatus status);
+    
+    // Find order by order number (for customer tracking)
+    Optional<Order> findByOrderNumber(String orderNumber);
+    
+    // Find orders by device ID (customer's orders)
+    List<Order> findByDeviceId(String deviceId);
     
     // Count methods for dashboard statistics
     long countByUserId(String userId);

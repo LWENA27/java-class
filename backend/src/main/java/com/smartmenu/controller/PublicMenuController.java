@@ -1,16 +1,22 @@
 package com.smartmenu.controller;
 
 import com.smartmenu.model.CustomerSession;
+import com.smartmenu.model.Feedback;
 import com.smartmenu.model.MenuItem;
+import com.smartmenu.model.Order;
 import com.smartmenu.model.Table;
 import com.smartmenu.repository.CustomerSessionRepository;
+import com.smartmenu.repository.FeedbackRepository;
 import com.smartmenu.repository.MenuItemRepository;
+import com.smartmenu.repository.OrderRepository;
 import com.smartmenu.repository.TableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -29,6 +35,12 @@ public class PublicMenuController {
     
     @Autowired
     private CustomerSessionRepository customerSessionRepository;
+    
+    @Autowired
+    private OrderRepository orderRepository;
+    
+    @Autowired
+    private FeedbackRepository feedbackRepository;
     
     /**
      * GET /api/public/table/{tableId}
@@ -191,5 +203,174 @@ public class PublicMenuController {
             CustomerSession newSession = new CustomerSession(deviceId, tableId, userId);
             customerSessionRepository.save(newSession);
         }
+    }
+    
+    /**
+     * POST /api/public/order
+     * Place a new order from customer
+     */
+    @PostMapping("/order")
+    public ResponseEntity<?> placeOrder(@RequestBody Map<String, Object> orderRequest) {
+        try {
+            String tableId = (String) orderRequest.get("tableId");
+            String deviceId = (String) orderRequest.get("deviceId");
+            String customerName = (String) orderRequest.get("customerName");
+            @SuppressWarnings("unchecked")
+            List<Map<String, Object>> items = (List<Map<String, Object>>) orderRequest.get("items");
+            
+            // Validate
+            if (tableId == null || items == null || items.isEmpty()) {
+                Map<String, String> error = new HashMap<>();
+                error.put("error", "Table ID and items are required");
+                return ResponseEntity.badRequest().body(error);
+            }
+            
+            // Get table info
+            Optional<Table> tableOpt = tableRepository.findById(tableId);
+            if (!tableOpt.isPresent()) {
+                Map<String, String> error = new HashMap<>();
+                error.put("error", "Table not found");
+                return ResponseEntity.notFound().build();
+            }
+            
+            Table table = tableOpt.get();
+            
+            // Create order
+            Order order = new Order();
+            order.setUserId(table.getUserId());
+            order.setTableId(tableId);
+            order.setTableNumber(table.getTableNumber());
+            order.setDeviceId(deviceId);
+            order.setCustomerName(customerName);
+            order.setStatus(Order.OrderStatus.PENDING);
+            
+            // Generate order number
+            String orderNumber = generateOrderNumber();
+            order.setOrderNumber(orderNumber);
+            
+            // Process order items
+            List<Order.OrderItem> orderItems = new ArrayList<>();
+            BigDecimal total = BigDecimal.ZERO;
+            
+            for (Map<String, Object> item : items) {
+                Order.OrderItem orderItem = new Order.OrderItem();
+                orderItem.setMenuItemId((String) item.get("id"));
+                orderItem.setMenuItemName((String) item.get("name"));
+                orderItem.setPrice(BigDecimal.valueOf(((Number) item.get("price")).doubleValue()));
+                orderItem.setQuantity(((Number) item.get("quantity")).intValue());
+                orderItem.setSpecialInstructions((String) item.get("specialInstructions"));
+                
+                orderItems.add(orderItem);
+                total = total.add(orderItem.getPrice().multiply(BigDecimal.valueOf(orderItem.getQuantity())));
+            }
+            
+            order.setItems(orderItems);
+            order.setSubtotal(total);
+            order.setTotal(total);
+            order.setCreatedAt(LocalDateTime.now());
+            order.setUpdatedAt(LocalDateTime.now());
+            
+            // Save order
+            order = orderRepository.save(order);
+            
+            // Update customer session if customerName provided
+            if (customerName != null && deviceId != null) {
+                Optional<CustomerSession> sessionOpt = customerSessionRepository.findByDeviceId(deviceId);
+                if (sessionOpt.isPresent()) {
+                    CustomerSession session = sessionOpt.get();
+                    session.setCustomerName(customerName);
+                    customerSessionRepository.save(session);
+                }
+            }
+            
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("orderNumber", orderNumber);
+            response.put("orderId", order.getId());
+            response.put("status", order.getStatus().toString());
+            response.put("message", "Oda imefanikiwa! Order placed successfully!");
+            
+            return ResponseEntity.ok(response);
+            
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Failed to place order: " + e.getMessage());
+            return ResponseEntity.internalServerError().body(error);
+        }
+    }
+    
+    /**
+     * GET /api/public/order/{orderNumber}
+     * Track order status
+     */
+    @GetMapping("/order/{orderNumber}")
+    public ResponseEntity<?> getOrderStatus(@PathVariable String orderNumber) {
+        Optional<Order> orderOpt = orderRepository.findByOrderNumber(orderNumber);
+        
+        if (!orderOpt.isPresent()) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Order not found");
+            return ResponseEntity.notFound().build();
+        }
+        
+        Order order = orderOpt.get();
+        return ResponseEntity.ok(order);
+    }
+    
+    /**
+     * POST /api/public/feedback
+     * Submit customer feedback
+     */
+    @PostMapping("/feedback")
+    public ResponseEntity<?> submitFeedback(@RequestBody Map<String, Object> feedbackRequest) {
+        try {
+            String orderNumber = (String) feedbackRequest.get("orderNumber");
+            String deviceId = (String) feedbackRequest.get("deviceId");
+            Integer rating = (Integer) feedbackRequest.get("rating");
+            String comments = (String) feedbackRequest.get("comments");
+            
+            // Find the order
+            Optional<Order> orderOpt = orderRepository.findByOrderNumber(orderNumber);
+            if (!orderOpt.isPresent()) {
+                Map<String, String> error = new HashMap<>();
+                error.put("error", "Order not found");
+                return ResponseEntity.notFound().build();
+            }
+            
+            Order order = orderOpt.get();
+            
+            // Create feedback (using existing Feedback model)
+            Feedback feedback = new Feedback();
+            feedback.setUserId(order.getUserId());
+            feedback.setOrderId(order.getId());
+            feedback.setOrderNumber(orderNumber);
+            feedback.setTableNumber(order.getTableNumber());
+            feedback.setTotalAmount(order.getTotal().doubleValue());
+            feedback.setRating(rating);
+            feedback.setComments(comments);
+            feedback.setCreatedAt(LocalDateTime.now());
+            
+            // Save feedback
+            feedbackRepository.save(feedback);
+            
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Asante! Thank you for your feedback!");
+            
+            return ResponseEntity.ok(response);
+            
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Failed to submit feedback: " + e.getMessage());
+            return ResponseEntity.internalServerError().body(error);
+        }
+    }
+    
+    // Generate unique order number
+    private String generateOrderNumber() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        String timestamp = LocalDateTime.now().format(formatter);
+        int random = (int) (Math.random() * 1000);
+        return "ORD" + timestamp + String.format("%03d", random);
     }
 }

@@ -1,1 +1,0 @@
-HTTP Request → Controller → Service → Repository → MongoDB → Response

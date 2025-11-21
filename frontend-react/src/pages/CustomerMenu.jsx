@@ -332,6 +332,25 @@ function MenuItem({ item, onAddToCart }) {
 
     return (
         <div className="menu-item-card">
+            {/* Food Image - Traditional Menu Book Style */}
+            <div className="menu-item-image">
+                {item.imageUrl ? (
+                    <img 
+                        src={item.imageUrl} 
+                        alt={item.name}
+                        onError={(e) => {
+                            e.target.style.display = 'none';
+                            e.target.nextElementSibling.style.display = 'flex';
+                        }}
+                    />
+                ) : (
+                    <div className="image-placeholder">
+                        <i className="fas fa-utensils"></i>
+                        <span>{item.name}</span>
+                    </div>
+                )}
+            </div>
+
             <div className="menu-item-content">
                 <h3>{item.name}</h3>
                 {item.description && <p className="description">{item.description}</p>}

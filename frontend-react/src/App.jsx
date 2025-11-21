@@ -25,6 +25,8 @@ import Reports from './pages/Reports';
 import QRCodes from './pages/QRCodes';
 import Settings from './pages/Settings';
 import CustomerMenu from './pages/CustomerMenu';
+import OrderTracking from './pages/OrderTracking';
+import CustomerFeedback from './pages/CustomerFeedback';
 import './App.css';
 
 function App() {
@@ -37,6 +39,12 @@ function App() {
         
         {/* Customer Menu - Public route for QR code scans (no auth required) */}
         <Route path="/customer-menu" element={<CustomerMenu />} />
+        
+        {/* Order Tracking - Public route for customers to track their orders */}
+        <Route path="/order-tracking" element={<OrderTracking />} />
+        
+        {/* Customer Feedback - Public route for customers to give feedback */}
+        <Route path="/feedback-form" element={<CustomerFeedback />} />
         
         {/* Login page */}
         <Route path="/login" element={<Login />} />

@@ -18,7 +18,7 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUserData, isLoggedIn } from '../services/api';
+import api, { getUserData, isLoggedIn } from '../services/api';
 import { useLanguage } from '../i18n/LanguageContext';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
@@ -66,56 +66,30 @@ function Orders() {
         loadOrders();
     }, [navigate]);
 
-    // 🎓 LESSON: Load orders from server (mock data for now)
+    // Load orders from server
     const loadOrders = async () => {
         try {
             setLoading(true);
             
-            // TODO: Replace with real API call
-            // const response = await api.get('/api/orders');
-            // setOrders(response.data);
+            // Real API call to get orders
+            const response = await api.get('/orders');
             
-            // Mock data for teaching
-            const mockData = [
-                {
-                    id: 1,
-                    order_number: 'ORD-001',
-                    table_number: 'Table 5',
-                    is_room: false,
-                    location: 'Indoor',
-                    total_amount: 45000,
-                    status: 'delivered',
-                    payment_status: 'completed',
-                    notes: 'Extra spicy',
-                    created_at: '2024-11-20 14:30:00'
-                },
-                {
-                    id: 2,
-                    order_number: 'ORD-002',
-                    table_number: 'Room 2',
-                    is_room: true,
-                    location: 'Second Floor',
-                    total_amount: 78000,
-                    status: 'preparing',
-                    payment_status: 'pending',
-                    notes: null,
-                    created_at: '2024-11-20 15:00:00'
-                },
-                {
-                    id: 3,
-                    order_number: 'ORD-003',
-                    table_number: 'Table 1',
-                    is_room: false,
-                    location: 'Outdoor',
-                    total_amount: 32000,
-                    status: 'confirmed',
-                    payment_status: 'pending',
-                    notes: 'No onions',
-                    created_at: '2024-11-20 15:15:00'
-                }
-            ];
+            // Transform the data to match the expected format
+            const transformedOrders = response.data.map(order => ({
+                id: order.id,
+                order_number: order.orderNumber || `ORD-${order.id.substring(0, 8)}`,
+                table_number: order.tableNumber || 'N/A',
+                is_room: false, // Can be extended later
+                location: 'Restaurant',
+                total_amount: order.total,
+                status: order.status ? order.status.toLowerCase() : 'pending',
+                payment_status: 'pending', // Can be added to Order model later
+                notes: order.customerNotes,
+                created_at: order.createdAt,
+                items: order.items || []
+            }));
             
-            setOrders(mockData);
+            setOrders(transformedOrders);
             setError('');
         } catch (err) {
             setError('Failed to load orders. Please try again.');
@@ -125,11 +99,13 @@ function Orders() {
         }
     };
 
-    // 🎓 LESSON: Update order status
+    // Update order status
     const handleStatusChange = async (orderId, newStatus) => {
         try {
-            // TODO: Replace with real API call
-            // await api.put(`/api/orders/${orderId}/status`, { status: newStatus });
+            // Real API call to update order status
+            await api.put(`/orders/${orderId}`, { 
+                status: newStatus.toUpperCase() 
+            });
             
             // Update local state
             setOrders(prev => prev.map(order => 
@@ -147,11 +123,11 @@ function Orders() {
         }
     };
 
-    // 🎓 LESSON: Toggle payment status
+    // Toggle payment status (local only for now - can be added to backend later)
     const handlePaymentToggle = async (orderId, isPaid) => {
         try {
-            // TODO: Replace with real API call
-            // await api.put(`/api/orders/${orderId}/payment`, { paid: isPaid });
+            // Note: Payment status can be added to the Order model in the backend
+            // For now, we'll just update local state
             
             // Update local state
             setOrders(prev => prev.map(order => 
@@ -169,44 +145,38 @@ function Orders() {
         }
     };
 
-    // 🎓 LESSON: View order details
+    // View order details
     const handleViewOrder = async (orderId) => {
         try {
-            // TODO: Replace with real API call
-            // const response = await api.get(`/api/orders/${orderId}`);
-            // setSelectedOrder(response.data.order);
-            // setOrderItems(response.data.items);
+            // Real API call to get order details
+            const response = await api.get(`/orders/${orderId}`);
+            const order = response.data;
             
-            // Mock data for teaching
-            const order = orders.find(o => o.id === orderId);
-            if (order) {
-                setSelectedOrder(order);
-                
-                // Mock order items
-                const mockItems = [
-                    {
-                        id: 1,
-                        item_name: 'Ugali & Fish',
-                        quantity: 2,
-                        unit_price: 15000,
-                        special_instructions: 'Extra spicy',
-                        customizations: [
-                            { option_name: 'Extra sauce', price_adjustment: 1000 }
-                        ]
-                    },
-                    {
-                        id: 2,
-                        item_name: 'Chips Mayai',
-                        quantity: 1,
-                        unit_price: 6000,
-                        special_instructions: null,
-                        customizations: []
-                    }
-                ];
-                
-                setOrderItems(mockItems);
-                setIsModalOpen(true);
-            }
+            // Set selected order
+            setSelectedOrder({
+                id: order.id,
+                order_number: order.orderNumber || `ORD-${order.id.substring(0, 8)}`,
+                table_number: order.tableNumber || 'N/A',
+                is_room: false,
+                location: 'Restaurant',
+                total_amount: order.total,
+                status: order.status ? order.status.toLowerCase() : 'pending',
+                notes: order.customerNotes,
+                created_at: order.createdAt
+            });
+            
+            // Transform order items
+            const transformedItems = order.items.map((item, index) => ({
+                id: index + 1,
+                item_name: item.menuItemName,
+                quantity: item.quantity,
+                unit_price: item.price,
+                special_instructions: item.specialInstructions,
+                customizations: [] // Can be extended later
+            }));
+            
+            setOrderItems(transformedItems);
+            setIsModalOpen(true);
         } catch (err) {
             setError(t('orderNotFound'));
             console.error('View order error:', err);

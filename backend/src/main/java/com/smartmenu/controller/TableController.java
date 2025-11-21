@@ -4,6 +4,7 @@ import com.smartmenu.model.Table;
 import com.smartmenu.repository.TableRepository;
 import com.smartmenu.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,6 +22,9 @@ import java.util.*;
 public class TableController {
 
     private final TableRepository tableRepository;
+    
+    @Value("${app.frontend.url}")
+    private String frontendUrl;
 
     /**
      * GET /api/tables
@@ -63,7 +67,6 @@ public class TableController {
 
         // Generate QR identifiers
         String qrCodeId = UUID.randomUUID().toString();
-        String qrCodeUrl = String.format("/index.html?table=%s", qrCodeId);
 
     Table table = new Table();
         table.setUserId(userId);
@@ -71,12 +74,19 @@ public class TableController {
     table.setRoom(isRoom);
     table.setLocation(location);
         table.setQrCodeId(qrCodeId);
-        table.setQrCodeUrl(qrCodeUrl);
+        table.setQrCodeUrl(""); // Will be updated after save
         table.setQrCodeImage("");
         table.setActive(true);
         table.setCreatedAt(LocalDateTime.now());
 
+        // Save first to get the table ID
         Table saved = tableRepository.save(table);
+        
+        // Now update with proper URL using frontend URL from config
+        String qrCodeUrl = String.format("%s/customer-menu?table=%s", frontendUrl, saved.getId());
+        saved.setQrCodeUrl(qrCodeUrl);
+        saved = tableRepository.save(saved);
+        
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 

@@ -4,6 +4,7 @@ com/smartmenu/model/Order.class
 com/smartmenu/model/Order$OrderItem.class
 com/smartmenu/model/User.class
 com/smartmenu/controller/TableController.class
+com/smartmenu/controller/OrderController.class
 com/smartmenu/repository/MenuItemRepository.class
 com/smartmenu/model/Order$OrderStatus.class
 com/smartmenu/model/MenuItem.class
@@ -13,6 +14,7 @@ com/smartmenu/dto/MenuItemResponse.class
 com/smartmenu/controller/AuthController.class
 com/smartmenu/repository/TableRepository.class
 com/smartmenu/controller/PublicMenuController.class
+com/smartmenu/controller/OrderController$UpdateOrderRequest.class
 com/smartmenu/security/UserDetailsImpl.class
 com/smartmenu/model/UserRole.class
 com/smartmenu/dto/LoginRequest.class
