@@ -23,4 +23,8 @@ public interface OrderRepository extends MongoRepository<Order, String> {
     
     // Find orders by status, ordered by creation date
     List<Order> findByUserIdAndStatusOrderByCreatedAtDesc(String userId, Order.OrderStatus status);
+    
+    // Count methods for dashboard statistics
+    long countByUserId(String userId);
+    long countByUserIdAndStatus(String userId, String status);
 }

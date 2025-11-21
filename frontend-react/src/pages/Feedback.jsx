@@ -23,6 +23,7 @@ import { getUserData, isLoggedIn } from '../services/api';
 import { useLanguage } from '../i18n/LanguageContext';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
+import api from '../services/api';
 import './Feedback.css';
 
 function Feedback() {
@@ -73,108 +74,45 @@ function Feedback() {
         loadFeedback();
     }, [navigate, currentPage, filters]);
 
-    // 🎓 LESSON: Load feedback from server (mock data for now)
+    // 🎓 LESSON: Load feedback from server
     const loadFeedback = async () => {
         try {
             setLoading(true);
             
-            // TODO: Replace with real API call
-            // const response = await api.get('/api/feedback', { params: { ...filters, page: currentPage } });
-            // setFeedbackEntries(response.data.entries);
-            // setTotalPages(response.data.totalPages);
-            // setTotalFeedback(response.data.total);
+            // Build query parameters
+            const params = {
+                page: currentPage - 1, // Backend uses 0-indexed pages
+                size: itemsPerPage,
+                sortBy: filters.sortBy
+            };
             
-            // Mock data for teaching
-            const mockData = [
-                {
-                    id: 1,
-                    order_id: 1,
-                    order_number: 'ORD-001',
-                    table_number: 'Table 5',
-                    total_amount: 45000,
-                    rating: 5,
-                    comments: 'Excellent service and food! Everything was perfect.',
-                    created_at: '2024-11-20 14:45:00'
-                },
-                {
-                    id: 2,
-                    order_id: 2,
-                    order_number: 'ORD-002',
-                    table_number: 'Room 2',
-                    total_amount: 78000,
-                    rating: 4,
-                    comments: 'Good food, fast delivery. Could be a bit warmer.',
-                    created_at: '2024-11-20 15:30:00'
-                },
-                {
-                    id: 3,
-                    order_id: 3,
-                    order_number: 'ORD-003',
-                    table_number: 'Table 1',
-                    total_amount: 32000,
-                    rating: 3,
-                    comments: 'Average experience. Food was okay but service was slow.',
-                    created_at: '2024-11-20 16:00:00'
-                },
-                {
-                    id: 4,
-                    order_id: 4,
-                    order_number: 'ORD-004',
-                    table_number: 'Table 3',
-                    total_amount: 55000,
-                    rating: 5,
-                    comments: 'Amazing! Will definitely come back.',
-                    created_at: '2024-11-19 12:30:00'
-                },
-                {
-                    id: 5,
-                    order_id: 5,
-                    order_number: 'ORD-005',
-                    table_number: 'Room 1',
-                    total_amount: 120000,
-                    rating: 4,
-                    comments: 'Great atmosphere and delicious food.',
-                    created_at: '2024-11-19 19:15:00'
-                }
-            ];
-            
-            // Apply filters (client-side filtering for mock data)
-            let filtered = [...mockData];
-            
+            // Add filters if set
             if (filters.rating > 0) {
-                filtered = filtered.filter(f => f.rating === filters.rating);
+                params.rating = filters.rating;
             }
-            
             if (filters.orderNumber) {
-                filtered = filtered.filter(f => 
-                    f.order_number.toLowerCase().includes(filters.orderNumber.toLowerCase())
-                );
+                params.orderNumber = filters.orderNumber;
+            }
+            if (filters.startDate) {
+                params.startDate = filters.startDate;
+            }
+            if (filters.endDate) {
+                params.endDate = filters.endDate;
             }
             
-            // Apply sorting
-            filtered.sort((a, b) => {
-                switch (filters.sortBy) {
-                    case 'date_asc':
-                        return new Date(a.created_at) - new Date(b.created_at);
-                    case 'rating_desc':
-                        return b.rating - a.rating;
-                    case 'rating_asc':
-                        return a.rating - b.rating;
-                    default: // date_desc
-                        return new Date(b.created_at) - new Date(a.created_at);
-                }
-            });
+            // Call real API
+            const response = await api.get('/feedback', { params });
             
-            setTotalFeedback(filtered.length);
-            setTotalPages(Math.ceil(filtered.length / itemsPerPage));
-            
-            // Paginate
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            setFeedbackEntries(filtered.slice(startIndex, endIndex));
+            setFeedbackEntries(response.data.entries || []);
+            setTotalPages(response.data.totalPages || 1);
+            setTotalFeedback(response.data.totalItems || 0);
             
         } catch (err) {
             console.error('Load error:', err);
+            // Show empty data on error
+            setFeedbackEntries([]);
+            setTotalFeedback(0);
+            setTotalPages(1);
         } finally {
             setLoading(false);
         }
@@ -228,7 +166,13 @@ function Feedback() {
 
     // Helper: Format date/time
     const formatDateTime = (datetime) => {
-        return new Date(datetime).toLocaleString('en-US', {
+        if (!datetime) return 'N/A';
+        // Handle both string and array formats from backend
+        const date = Array.isArray(datetime) 
+            ? new Date(datetime[0], datetime[1] - 1, datetime[2], datetime[3] || 0, datetime[4] || 0, datetime[5] || 0)
+            : new Date(datetime);
+        
+        return date.toLocaleString('en-US', {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
@@ -327,11 +271,11 @@ function Feedback() {
                                                         <tr key={feedback.id}>
                                                             <td>{feedback.id}</td>
                                                             <td className="font-weight-bold">
-                                                                {feedback.order_number}
+                                                                {feedback.orderNumber}
                                                             </td>
-                                                            <td>{feedback.table_number}</td>
+                                                            <td>{feedback.tableNumber}</td>
                                                             <td className="font-weight-bold">
-                                                                {formatPrice(feedback.total_amount)}
+                                                                {formatPrice(feedback.totalAmount)}
                                                             </td>
                                                             <td className="rating-stars">
                                                                 {renderStars(feedback.rating)}
@@ -339,7 +283,7 @@ function Feedback() {
                                                             <td className="comments-cell">
                                                                 {feedback.comments || t('noComments')}
                                                             </td>
-                                                            <td>{formatDateTime(feedback.created_at)}</td>
+                                                            <td>{formatDateTime(feedback.createdAt)}</td>
                                                         </tr>
                                                     ))
                                                 )}

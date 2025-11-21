@@ -16,6 +16,7 @@ import { getUserData, clearUserData, isLoggedIn } from '../services/api';
 import { useLanguage } from '../i18n/LanguageContext';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
+import api from '../services/api';
 import './Dashboard.css';
 
 function Dashboard() {
@@ -54,41 +55,32 @@ function Dashboard() {
         setLoading(true);
         
         try {
-            // Simulate API calls (replace with real API when backend endpoints are ready)
-            // For now, using mock data
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            // Mock stats
-            setStats({
-                totalOrders: 45,
-                totalSales: 1250000.00,
-                pendingOrders: 8,
-                activeItems: 32,
-                tablesCount: 15
-            });
-
-            // Mock recent orders
-            setRecentOrders([
-                { id: 1, orderNumber: 'ORD-001', tableNumber: 'Table 5', amount: 45000, status: 'delivered', paymentStatus: 'completed', createdAt: new Date() },
-                { id: 2, orderNumber: 'ORD-002', tableNumber: 'Room 2', amount: 78000, status: 'preparing', paymentStatus: 'pending', createdAt: new Date() },
-                { id: 3, orderNumber: 'ORD-003', tableNumber: 'Table 1', amount: 32000, status: 'confirmed', paymentStatus: 'pending', createdAt: new Date() }
+            // Fetch real data from backend API
+            const [statsRes, ordersRes, itemsRes, feedbackRes] = await Promise.all([
+                api.get('/dashboard/stats'),
+                api.get('/dashboard/recent-orders'),
+                api.get('/dashboard/top-items'),
+                api.get('/dashboard/recent-feedback')
             ]);
 
-            // Mock top items
-            setTopItems([
-                { name: 'Ugali & Fish', totalSold: 45, totalRevenue: 675000 },
-                { name: 'Pilau & Chicken', totalSold: 38, totalRevenue: 570000 },
-                { name: 'Chips Mayai', totalSold: 52, totalRevenue: 312000 }
-            ]);
-
-            // Mock feedback
-            setRecentFeedback([
-                { id: 1, orderNumber: 'ORD-001', tableNumber: 'Table 5', rating: 5, comments: 'Excellent service and food!' },
-                { id: 2, orderNumber: 'ORD-004', tableNumber: 'Table 3', rating: 4, comments: 'Good food, fast delivery' }
-            ]);
+            setStats(statsRes.data);
+            setRecentOrders(ordersRes.data);
+            setTopItems(itemsRes.data);
+            setRecentFeedback(feedbackRes.data);
 
         } catch (error) {
             console.error('Error loading dashboard:', error);
+            // If API fails, show empty/zero data instead of mock data
+            setStats({
+                totalOrders: 0,
+                totalSales: 0,
+                pendingOrders: 0,
+                activeItems: 0,
+                tablesCount: 0
+            });
+            setRecentOrders([]);
+            setTopItems([]);
+            setRecentFeedback([]);
         } finally {
             setLoading(false);
         }

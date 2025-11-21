@@ -62,6 +62,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // Public endpoints (no authentication needed)
                 .requestMatchers("/api/auth/**").permitAll()    // Login, register
+                .requestMatchers("/api/public/**").permitAll()  // Public menu access
                 .requestMatchers("/api/health").permitAll()      // Health check
                 .requestMatchers("/swagger-ui/**").permitAll()   // API docs
                 .requestMatchers("/api-docs/**").permitAll()     // API docs

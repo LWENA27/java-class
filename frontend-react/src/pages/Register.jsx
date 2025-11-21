@@ -85,7 +85,7 @@ function Register() {
                 <h2>Create Account</h2>
 
                 {/* 🎓 TEACHING: Development Mode Notice */}
-                <div className="info-box">
+                {/* <div className="info-box">
                     <h4>📝 For Development/Testing</h4>
                     <p><strong>Use these test credentials to login:</strong></p>
                     <ul style={{textAlign: 'left', margin: '10px 0'}}>
@@ -96,7 +96,7 @@ function Register() {
                         <em>Note: Backend authentication is under development. 
                         Use the test credentials above to access the dashboard.</em>
                     </p>
-                </div>
+                </div> */}
 
                 {error && <div className="alert alert-error">{error}</div>}
                 {success && <div className="alert alert-success">{success}</div>}

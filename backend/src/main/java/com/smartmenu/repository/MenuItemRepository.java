@@ -23,4 +23,7 @@ public interface MenuItemRepository extends MongoRepository<MenuItem, String> {
     
     // Find featured items
     List<MenuItem> findByUserIdAndFeaturedTrue(String userId);
+    
+    // Count methods for dashboard statistics
+    long countByUserIdAndAvailableTrue(String userId);
 }

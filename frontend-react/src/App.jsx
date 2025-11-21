@@ -23,6 +23,7 @@ import Orders from './pages/Orders';
 import Feedback from './pages/Feedback';
 import Reports from './pages/Reports';
 import QRCodes from './pages/QRCodes';
+import Settings from './pages/Settings';
 import './App.css';
 
 function App() {
@@ -60,6 +61,9 @@ function App() {
   <Route path="/reports" element={<Reports />} />
         {/* QR Codes Route - Manage QR codes for tables/rooms */}
         <Route path="/qr-codes" element={<QRCodes />} />
+        
+        {/* Settings Route - Manage account and application settings */}
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </Router>
     </LanguageProvider>

@@ -24,4 +24,7 @@ public interface TableRepository extends MongoRepository<Table, String> {
 
     // Find active tables
     List<Table> findByUserIdAndActiveTrue(String userId);
+    
+    // Count methods for dashboard statistics
+    long countByUserId(String userId);
 }
