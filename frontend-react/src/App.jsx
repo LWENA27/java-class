@@ -24,6 +24,7 @@ import Feedback from './pages/Feedback';
 import Reports from './pages/Reports';
 import QRCodes from './pages/QRCodes';
 import Settings from './pages/Settings';
+import CustomerMenu from './pages/CustomerMenu';
 import './App.css';
 
 function App() {
@@ -33,6 +34,9 @@ function App() {
         <Routes>
         {/* Default route - redirect to login */}
         <Route path="/" element={<Navigate to="/login" replace />} />
+        
+        {/* Customer Menu - Public route for QR code scans (no auth required) */}
+        <Route path="/customer-menu" element={<CustomerMenu />} />
         
         {/* Login page */}
         <Route path="/login" element={<Login />} />

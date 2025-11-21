@@ -14,6 +14,7 @@
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/controller/MenuItemController.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/repository/OrderRepository.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/dto/RegisterRequest.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/controller/PublicMenuController.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/model/MenuItem.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/model/UserRole.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/controller/FeedbackController.java
@@ -25,8 +26,10 @@
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/repository/FeedbackRepository.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/controller/HealthController.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/service/AuthService.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/repository/CustomerSessionRepository.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/security/JwtAuthenticationFilter.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/service/MenuItemService.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/controller/DashboardController.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/security/UserDetailsServiceImpl.java
+/var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/model/CustomerSession.java
 /var/www/html/smart-menu-saas/backend/src/main/java/com/smartmenu/dto/LoginRequest.java

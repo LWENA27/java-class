@@ -60,19 +60,20 @@ public class SecurityConfig {
             
             // Configure which endpoints need authentication
             .authorizeHttpRequests(auth -> auth
-                // Public endpoints (no authentication needed)
+                // Public endpoints (no authentication needed) - ORDER MATTERS!
                 .requestMatchers("/api/auth/**").permitAll()    // Login, register
                 .requestMatchers("/api/public/**").permitAll()  // Public menu access
                 .requestMatchers("/api/health").permitAll()      // Health check
                 .requestMatchers("/swagger-ui/**").permitAll()   // API docs
                 .requestMatchers("/api-docs/**").permitAll()     // API docs
+                .requestMatchers("/error").permitAll()           // Error page
                 
                 // All other endpoints require authentication
                 .anyRequest().authenticated()
-            );
-        
-        // Add JWT filter BEFORE Spring Security's username/password filter
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+            )
+            
+            // Add JWT filter BEFORE Spring Security's username/password filter
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         
         return http.build();
     }

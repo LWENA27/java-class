@@ -12,6 +12,7 @@ com/smartmenu/controller/FeedbackController.class
 com/smartmenu/dto/MenuItemResponse.class
 com/smartmenu/controller/AuthController.class
 com/smartmenu/repository/TableRepository.class
+com/smartmenu/controller/PublicMenuController.class
 com/smartmenu/security/UserDetailsImpl.class
 com/smartmenu/model/UserRole.class
 com/smartmenu/dto/LoginRequest.class
@@ -23,12 +24,14 @@ com/smartmenu/config/WebConfig$1.class
 com/smartmenu/controller/HealthController.class
 com/smartmenu/service/MenuItemService.class
 com/smartmenu/repository/OrderRepository.class
+com/smartmenu/model/CustomerSession.class
 com/smartmenu/controller/DashboardController.class
 com/smartmenu/controller/MenuItemController.class
 com/smartmenu/security/UserDetailsServiceImpl.class
 com/smartmenu/model/Feedback.class
 com/smartmenu/util/JwtUtil.class
 com/smartmenu/service/AuthService.class
+com/smartmenu/repository/CustomerSessionRepository.class
 com/smartmenu/SmartMenuApplication.class
 com/smartmenu/model/Table.class
 com/smartmenu/config/SecurityConfig.class

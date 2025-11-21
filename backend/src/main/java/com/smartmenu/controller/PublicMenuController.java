@@ -19,7 +19,6 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/api/public")
-@CrossOrigin(origins = "*")
 public class PublicMenuController {
     
     @Autowired
@@ -50,7 +49,8 @@ public class PublicMenuController {
         response.put("id", table.getId());
         response.put("tableNumber", table.getTableNumber());
         response.put("userId", table.getUserId());
-        response.put("qrCode", table.getQrCode());
+        response.put("qrCodeId", table.getQrCodeId());
+        response.put("qrCodeUrl", table.getQrCodeUrl());
         
         return ResponseEntity.ok(response);
     }
