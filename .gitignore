@@ -6,6 +6,9 @@
 *.key
 credentials.txt
 
+# Build artifacts
+cleanup.sh
+
 # IDE files
 .vscode/
 .idea/
@@ -21,6 +24,7 @@ Thumbs.db
 backend/target/
 backend/*.log
 backend/logs/
+backend/logs*.txt
 
 # Frontend
 frontend-react/node_modules/
@@ -34,3 +38,5 @@ logs/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+backend-output.txt
+logs-backend.txt
