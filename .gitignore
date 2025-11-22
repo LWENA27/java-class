@@ -5,6 +5,7 @@
 *.pem
 *.key
 credentials.txt
+MONGODB_CONNECTION.md
 
 # Build artifacts
 cleanup.sh
