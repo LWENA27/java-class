@@ -9,7 +9,7 @@ Set these in Render Dashboard → Backend Service → Environment:
 | Variable | Required | Default | Description | Example |
 |----------|----------|---------|-------------|---------|
 | `PORT` | No | `8080` | Port for backend server (Render sets automatically) | `8080` |
-| `MONGODB_URI` | **YES** | `mongodb://localhost:27017/smartmenu` | MongoDB connection string | `mongodb+srv://user:pass@cluster.mongodb.net/smartmenu?retryWrites=true&w=majority` |
+| `MONGODB_URI` | **YES** | `mongodb://localhost:27017/smartmenu` | MongoDB connection string | `mongodb+srv://USERNAME:PASSWORD@cluster.mongodb.net/DB_NAME?retryWrites=true&w=majority` |
 | `JWT_SECRET` | **YES** | (development secret) | Secret key for JWT token signing | Use Render's "Generate" button for random value |
 | `FRONTEND_URL` | **YES** | `http://localhost:5173` | Frontend URL for CORS and QR codes | `https://smartmenu-frontend.onrender.com` |
 
@@ -83,7 +83,7 @@ Backend uses `application.properties` with defaults:
 
 ### Backend Can't Connect to Database
 - ❌ Wrong: `mongodb+srv://user:<password>@cluster.mongodb.net/`
-- ✅ Right: `mongodb+srv://user:ActualPassword123@cluster.mongodb.net/smartmenu?retryWrites=true&w=majority`
+- ✅ Right: `mongodb+srv://USERNAME:YOUR_PASSWORD@cluster.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority`
 - Check: Password has no special characters, or URL-encode them
 - Check: Database name is included before `?`
 

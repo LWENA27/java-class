@@ -26,9 +26,9 @@ This guide will help you deploy the Smart Menu SaaS application to Render.com fo
 1. Go to **Database Access** (left sidebar)
 2. Click **Add New Database User**
 3. Choose **Password** authentication
-4. Create username and password (save these!)
-   - Example: username=`smartmenu`, password=`YourSecurePassword123!`
-5. Set user privileges to **Read and write to any database**
+3. Create username and password (save these!)
+   - Choose a strong password and save it securely
+4. Set user privileges to **Read and write to any database**
 6. Click **Add User**
 
 ### Step 3: Configure Network Access
@@ -51,7 +51,7 @@ This guide will help you deploy the Smart Menu SaaS application to Render.com fo
 5. **IMPORTANT**: Replace `<password>` with your actual database password
 6. **IMPORTANT**: Add your database name before the `?`:
    ```
-   mongodb+srv://smartmenu:YourPassword@smartmenu-cluster.xxxxx.mongodb.net/smartmenu?retryWrites=true&w=majority
+   mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@your-cluster.xxxxx.mongodb.net/smartmenu?retryWrites=true&w=majority
    ```
 
 ---
